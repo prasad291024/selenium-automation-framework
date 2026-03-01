@@ -1,0 +1,30 @@
+# Code Owners - Auto-assign reviewers for PRs
+
+# Default owners for everything
+* @Prasad
+
+# Test files
+/src/test/ @Prasad @QA-Team
+
+# Page objects
+/src/main/java/com/prasad_v/pages/ @Prasad @Dev-Team
+
+# Utilities and drivers
+/src/main/java/com/prasad_v/utils/ @Prasad @Dev-Team
+/src/main/java/com/prasad_v/driver/ @Prasad @Dev-Team
+
+# Configuration files
+*.properties @Prasad @DevOps-Team
+*.xml @Prasad @DevOps-Team
+*.yml @Prasad @DevOps-Team
+
+# CI/CD workflows
+/.github/workflows/ @Prasad @DevOps-Team
+
+# Docker files
+Dockerfile @Prasad @DevOps-Team
+docker-compose.yml @Prasad @DevOps-Team
+
+# Documentation
+*.md @Prasad
+/Personal_Docs/ @Prasad

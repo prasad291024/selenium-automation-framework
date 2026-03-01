@@ -4,14 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d856a4-c9d7-42c5-b720-9a4a8212818a" name="Changes" comment="BDD Cucumber">
+    <list default="true" id="28d856a4-c9d7-42c5-b720-9a4a8212818a" name="Changes" comment="xml">
+      <change afterPath="$PROJECT_DIR$/Personal_Docs/InitialObservation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/definitions/VWOLoginPageDef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/definitions/VWOLoginPageDef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManagerTL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManagerTL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/DashBoardPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/DashBoardPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/LoginPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/normal_POM/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/normal_POM/LoginPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/base/CommonToAllTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/base/CommonToAllTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/listeners/ScreenshotListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/listeners/ScreenshotListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_01_NormalScript_POM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_01_NormalScript_POM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testng_vwo_pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/testng_vwo_pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/Prasad/Projects/IdeaProjects/ATB10xSeleniumAdvanceFramework" value="2viwWCwmUZ2dxNmPWdsp3JfX5Xv" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="111" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -32,9 +53,13 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/prasad291024/ATB10xSeleniumAdvanceFramework.git&quot;,
-    &quot;accountId&quot;: &quot;4dd5e5a2-2056-45ae-89a4-88163c36278c&quot;
+    &quot;accountId&quot;: &quot;153843cf-2524-402b-831f-d56e359f1a5d&quot;
   }
 }</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -47,7 +72,9 @@
   &quot;keyToString&quot;: {
     &quot;Application.Hello.executor&quot;: &quot;Run&quot;,
     &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;TestNG.C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/testng.xml.executor&quot;: &quot;Run&quot;,
@@ -56,7 +83,8 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Prasad/Projects/IdeaProjects/ATB10xSeleniumAdvanceFramework&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -65,6 +93,7 @@
       <recent name="C:\Users\prasa\IdeaProjects\ATB10xSeleniumAdvanceFramework\src\main\java\com\prasad_v\pages\pageObjectModel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Prasad\Projects\IdeaProjects\ATB10xSeleniumAdvanceFramework\Personal_Docs" />
       <recent name="C:\Users\prasa\IdeaProjects\ATB10xSeleniumAdvanceFramework\src\main\resources" />
     </key>
   </component>
@@ -127,6 +156,13 @@
         <item itemvalue="Application.Hello" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -209,7 +245,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746355115692</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="xml">
+      <option name="closed" value="true" />
+      <created>1750214682078</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750214682078</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -217,6 +261,15 @@
     <MESSAGE value="Log4j, Page Factory" />
     <MESSAGE value="Framework" />
     <MESSAGE value="BDD Cucumber" />
-    <option name="LAST_COMMIT_MESSAGE" value="BDD Cucumber" />
+    <MESSAGE value="xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="xml" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

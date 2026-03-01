@@ -1,61 +1,56 @@
 package com.prasad_v.tests.pom.vwo;
 
+import com.prasad_v.driver.DriverManagerTL;
 import com.prasad_v.pages.pageObjectModel.appvwo.normal_POM.DashboardPage;
 import com.prasad_v.pages.pageObjectModel.appvwo.normal_POM.LoginPage;
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.*;
 
-
+@Listeners({com.prasad_v.listeners.ScreenshotListener.class})
 public class TestVWOLogin_01_NormalScript_POM {
 
-    @Description("Verify that with invalid email, pass, error message is shown on the app.vwo.com")
-    @Test
-    public void test_negative_vwo_login() throws Exception {
+    WebDriver driver;
 
-        // Driver Manager Code - 1
-        EdgeOptions edgeOptions = new EdgeOptions();
-        edgeOptions.addArguments("--start-maximized");
-        WebDriver driver = new EdgeDriver(edgeOptions);
-
-        // Page Class Code (POM Code) - 2
-        LoginPage loginPage  = new LoginPage(driver);
-        String error_msg = loginPage.loginToVWOLoginInvalidCreds("admin@gmail.com","1234");
-
-        // Assertions - 3
-        assertThat(error_msg).isNotBlank().isNotNull().isNotEmpty();
-        Assert.assertEquals(error_msg,"Your email, password, IP address or location did not match");
-
-        driver.quit();
-
-
+    @BeforeMethod
+    public void setUp() {
+        DriverManagerTL.init();
+        driver = DriverManagerTL.getDriver();
     }
 
+    @AfterMethod
+    public void tearDown() {
+        DriverManagerTL.quit();
+    }
 
+    @Owner("PRASAD")
+    @Description("Verify that with invalid email, pass, error message is shown on the app.vwo.com")
+    @Test
+    public void test_negative_vwo_login() {
+        LoginPage loginPage = new LoginPage(driver);
+        String error_msg = loginPage.loginToVWOLoginInvalidCreds("admin@gmail.com", "1234");
 
-    @Owner("PRAMOD")
+        assertThat(error_msg).isNotBlank().isNotNull().isNotEmpty();
+        Assert.assertEquals(error_msg, "Your email, password, IP address or location did not match");
+    }
+
+    @Owner("PRASAD")
     @Description("Verify that valid creds dashboard page is loaded")
     @Test
     public void test_positive_vwo_login() {
-
-
-        WebDriver driver = new EdgeDriver();
-
-
         LoginPage loginPage_VWO = new LoginPage(driver);
-        loginPage_VWO.loginToVWOLoginValidCreds("contact+aug@thetestingacademy.com","TtxkgQ!s$rJBk85");
-        DashboardPage dashBoardPage  = new DashboardPage(driver);
+        loginPage_VWO.loginToVWOLoginValidCreds("contact+aug@thetestingacademy.com", "TtxkgQ!s$rJBk85");
+        
+        DashboardPage dashBoardPage = new DashboardPage(driver);
         String usernameLoggedIn = dashBoardPage.loggedInUserName();
 
         assertThat(usernameLoggedIn).isNotBlank().isNotNull().isNotEmpty();
-        Assert.assertEquals(usernameLoggedIn,"Aman");
-        driver.quit();
-
+        Assert.assertEquals(usernameLoggedIn, "Aman");
     }
-
 }

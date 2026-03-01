@@ -1,0 +1,59 @@
+name: Selenium Test Automation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: Install Chrome
+      if: matrix.browser == 'chrome'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+    
+    - name: Install Firefox
+      if: matrix.browser == 'firefox'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y firefox
+    
+    - name: Run Tests
+      run: mvn clean test -Dbrowser=${{ matrix.browser }} -Dsurefire.suiteXmlFiles=testng_vwo_pom.xml
+    
+    - name: Generate Allure Report
+      if: always()
+      run: mvn allure:report
+    
+    - name: Upload Allure Results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-results-${{ matrix.browser }}
+        path: allure-results/
+    
+    - name: Upload Screenshots
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: screenshots-${{ matrix.browser }}
+        path: screenshots/

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_01_NormalScript_POM.java">
+<suite name="All Test Suite" parallel="methods" thread-count="2">
+    <test verbose="2" preserve-order="true" name="VWO Login Tests">
         <classes>
             <class name="com.prasad_v.tests.pom.vwo.TestVWOLogin_01_NormalScript_POM">
                 <methods>
