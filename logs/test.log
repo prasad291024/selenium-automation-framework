@@ -1,0 +1,7 @@
+2026-03-01 18:08:56 INFO  LoggerUtil - === Test Execution Started ===
+2026-03-01 18:08:56 INFO  LoggerUtil - Loaded configuration for environment: qa
+2026-03-01 18:08:56 INFO  LoggerUtil - Environment: qa
+2026-03-01 18:09:20 INFO  LoggerUtil - Loaded configuration for environment: qa
+2026-03-01 18:09:20 INFO  LoggerUtil - ✅ LoggerUtil is working!
+2026-03-01 18:09:20 WARN  LoggerUtil - Warning message
+2026-03-01 18:21:01 INFO  LoggerUtil - Screenshot captured: screenshots/test_negative_vwo_login_20260301_182100.png

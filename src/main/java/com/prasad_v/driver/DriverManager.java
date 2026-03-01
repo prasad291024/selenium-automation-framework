@@ -49,11 +49,11 @@ public class DriverManager {
 
             // If browser = edge
             case "edge":
-                // Create EdgeOptions to configure browser settings
+                System.setProperty("webdriver.edge.driver", "C:\\WebDrivers\\edgedriver_win64\\msedgedriver.exe");
                 EdgeOptions edgeOptions = new EdgeOptions();
-                edgeOptions.addArguments("--start-maximized"); // open in maximized window
-                edgeOptions.addArguments("--guest");            // launch in guest mode
-                driver = new EdgeDriver(edgeOptions);           // launch Edge with options
+                edgeOptions.addArguments("--start-maximized");
+                edgeOptions.addArguments("--guest");
+                driver = new EdgeDriver(edgeOptions);
                 break;
 
             // If browser = chrome
