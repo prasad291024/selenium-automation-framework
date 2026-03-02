@@ -4,7 +4,7 @@ import com.prasad_v.base.CommonToAllTest;
 import com.prasad_v.driver.DriverManagerTL;
 import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.DashBoardPage;
 import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.LoginPage;
-import com.prasad_v.utils.PropertiesReader;
+import com.prasad_v.utils.ConfigManager;
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
 import org.testng.Assert;
@@ -19,11 +19,11 @@ public class TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll extend
     public void test_negative_vwo_login() {
         LoginPage loginPage = new LoginPage(DriverManagerTL.getDriver());
         String error_msg = loginPage.loginToVWOLoginInvalidCreds(
-            PropertiesReader.readKey("invalid_username"),
-            PropertiesReader.readKey("invalid_password"));
+            ConfigManager.get("invalid_username"),
+            ConfigManager.get("invalid_password"));
 
         assertThat(error_msg).isNotBlank().isNotNull().isNotEmpty();
-        Assert.assertEquals(error_msg, PropertiesReader.readKey("error_message"));
+        Assert.assertEquals(error_msg, ConfigManager.get("error_message"));
     }
 
     @Owner("PRASAD")
@@ -32,13 +32,13 @@ public class TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll extend
     public void testLoginPositiveVWO() {
         LoginPage loginPage_VWO = new LoginPage(DriverManagerTL.getDriver());
         loginPage_VWO.loginToVWOLoginValidCreds(
-            PropertiesReader.readKey("username"),
-            PropertiesReader.readKey("password"));
+            ConfigManager.get("username"),
+            ConfigManager.get("password"));
 
         DashBoardPage dashBoardPage = new DashBoardPage(DriverManagerTL.getDriver());
         String usernameLoggedIn = dashBoardPage.loggedInUserName();
 
         assertThat(usernameLoggedIn).isNotBlank().isNotNull().isNotEmpty();
-        Assert.assertEquals(usernameLoggedIn, PropertiesReader.readKey("expected_username"));
+        Assert.assertEquals(usernameLoggedIn, ConfigManager.get("expected_username"));
     }
 }
