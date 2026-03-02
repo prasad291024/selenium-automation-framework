@@ -3,7 +3,7 @@ package com.prasad_v.tests.pom.vwo;
 import com.prasad_v.driver.DriverManager;
 import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.DashBoardPage;
 import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.LoginPage;
-import com.prasad_v.utils.PropertiesReader;
+import com.prasad_v.utils.ConfigManager;
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
 import org.testng.Assert;
@@ -22,11 +22,11 @@ public class TestVWOLogin_03_PropertyReader_DriverManager_POM {
 
         // Page Class Code (POM Code) - 2
         LoginPage loginPage  = new LoginPage(DriverManager.getDriver());
-        String error_msg = loginPage.loginToVWOLoginInvalidCreds(PropertiesReader.readKey("invalid_username"), PropertiesReader.readKey("invalid_password"));
+        String error_msg = loginPage.loginToVWOLoginInvalidCreds(ConfigManager.get("invalid_username"), ConfigManager.get("invalid_password"));
 
         // Assertions - 3
         assertThat(error_msg).isNotBlank().isNotNull().isNotEmpty();
-        Assert.assertEquals(error_msg,PropertiesReader.readKey("error_message"));
+        Assert.assertEquals(error_msg,ConfigManager.get("error_message"));
 
         DriverManager.getDriver().quit();
 
@@ -41,14 +41,14 @@ public class TestVWOLogin_03_PropertyReader_DriverManager_POM {
 
 
         LoginPage loginPage_VWO = new LoginPage(DriverManager.getDriver());
-        loginPage_VWO.loginToVWOLoginValidCreds(PropertiesReader.readKey("username"),PropertiesReader.readKey("password"));
+        loginPage_VWO.loginToVWOLoginValidCreds(ConfigManager.get("username"),ConfigManager.get("password"));
 
         DashBoardPage dashBoardPage  = new DashBoardPage(DriverManager.getDriver());
         String usernameLoggedIn = dashBoardPage.loggedInUserName();
 
 
         assertThat(usernameLoggedIn).isNotBlank().isNotNull().isNotEmpty();
-        Assert.assertEquals(usernameLoggedIn,PropertiesReader.readKey("expected_username"));
+        Assert.assertEquals(usernameLoggedIn,ConfigManager.get("expected_username"));
 
         DriverManager.getDriver().quit();
 

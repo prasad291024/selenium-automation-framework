@@ -21,7 +21,7 @@ public class UtilExcel {
     static Workbook book;
     static Sheet sheet;
 
-    public static String SHEET_PATH = System.getProperty("user.dir") + "/src/test/resources/TestData.xlsx";
+    public static String SHEET_PATH = System.getProperty("user.dir") + "/src/main/resources/TestData.xlsx";
 
 
     public static Object[][] getTestDataFromExcel(String sheetName) {

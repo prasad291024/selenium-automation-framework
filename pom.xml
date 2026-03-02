@@ -83,12 +83,6 @@
       <version>5.2.4</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi-ooxml-schemas</artifactId>
-      <version>4.1.2</version>
-    </dependency>
-
     <!-- REST Assured for API Testing -->
     <dependency>
       <groupId>io.rest-assured</groupId>

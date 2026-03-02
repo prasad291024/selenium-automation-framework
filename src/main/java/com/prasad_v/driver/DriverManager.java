@@ -16,9 +16,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 // Class to manage WebDriver instance lifecycle (init, get, quit)
+// WARNING: This uses static WebDriver - NOT thread-safe for parallel execution
+// For parallel tests, use DriverManagerTL instead
 public class DriverManager {
 
     // Static WebDriver instance accessible globally within the framework
+    // NOTE: Static driver is NOT thread-safe - use DriverManagerTL for parallel execution
     public static WebDriver driver;
 
     // Getter method for the WebDriver

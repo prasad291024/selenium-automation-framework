@@ -39,3 +39,11 @@ build/
 
 ## Personal files and folders ##
 Personal_Docs/
+
+## Test Reports & Results ##
+allure-results/
+allure-report/
+screenshots/
+logs/
+test-output/
+surefire-reports/
