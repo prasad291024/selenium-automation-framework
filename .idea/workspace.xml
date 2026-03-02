@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28d856a4-c9d7-42c5-b720-9a4a8212818a" name="Changes" comment="xml">
-      <change afterPath="$PROJECT_DIR$/Personal_Docs/InitialObservation.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManagerTL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/driver/DriverManagerTL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/DashBoardPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/DashBoardPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/LoginPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/normal_POM/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/normal_POM/LoginPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/base/CommonToAllTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/base/CommonToAllTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/listeners/ScreenshotListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/listeners/ScreenshotListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_01_NormalScript_POM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_01_NormalScript_POM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testng_vwo_pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/testng_vwo_pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +18,7 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="111" />
+    <option name="cachedIndexableFilesCount" value="206" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -80,7 +66,7 @@
     &quot;TestNG.C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/testng.xml.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/testng_vwo_pom.xml.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.TestVWOLogin_01_NormalScript_POM.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/phase-4-environment-config&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Prasad/Projects/IdeaProjects/ATB10xSeleniumAdvanceFramework&quot;,
