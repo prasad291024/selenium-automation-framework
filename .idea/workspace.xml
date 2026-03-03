@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="28d856a4-c9d7-42c5-b720-9a4a8212818a" name="Changes" comment="xml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/prod.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/qa.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/qa.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_02_PropertyReader_DriverManager_POM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_02_PropertyReader_DriverManager_POM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_03_PropertyReader_DriverManager_POM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_03_PropertyReader_DriverManager_POM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/pom/vwo/TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +18,7 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="206" />
+    <option name="cachedIndexableFilesCount" value="215" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
