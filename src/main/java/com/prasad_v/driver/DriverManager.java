@@ -64,6 +64,20 @@ public class DriverManager {
                 // Create ChromeOptions to configure browser settings
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized"); // open in maximized window
+
+                // ============ ADD THESE LINES FOR CI/CD SUPPORT ============
+                // Check if running in CI/CD environment (GitHub Actions)
+                // When GITHUB_ACTIONS env variable is set, use headless mode
+                if (System.getenv("GITHUB_ACTIONS") != null) {
+                    // Headless mode - run without GUI (for CI/CD)
+                    chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments("--no-sandbox");
+                    chromeOptions.addArguments("--disable-dev-shm-usage");
+                    chromeOptions.addArguments("--disable-gpu");
+                    chromeOptions.addArguments("--window-size=1920,1080");
+                }
+                // ============ END CI/CD SUPPORT CODE ============
+
                 driver = new ChromeDriver(chromeOptions);        // launch Chrome with options
                 break;
 
@@ -72,6 +86,15 @@ public class DriverManager {
                 // Create FirefoxOptions to configure browser settings
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("--start-maximized"); // open in maximized window
+
+                // ============ ADD THESE LINES FOR CI/CD SUPPORT ============
+                // Check if running in CI/CD environment (GitHub Actions)
+                if (System.getenv("GITHUB_ACTIONS") != null) {
+                    // Headless mode for Firefox
+                    firefoxOptions.addArguments("--headless");
+                }
+                // ============ END CI/CD SUPPORT CODE ============
+
                 driver = new FirefoxDriver(firefoxOptions);       // launch Firefox with options
                 break;
 
@@ -95,50 +118,3 @@ public class DriverManager {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-This program is about browser driver management. It allows you to:
-Initialize the browser specified in the config.properties file.
-Provide access to the WebDriver object from anywhere in your framework using a static getDriver() method.
-Properly shut down the browser session after test execution.
-
-
-🎯 Intention of the Program
-To launch different browsers based on external configuration (Edge, Chrome, Firefox).
-To centralize WebDriver control (getter/setter/init/teardown).
-To allow browser-level configuration (maximize window, run in guest mode, etc.).
-To ensure clean and reusable browser control throughout test lifecycle.
-
-Conditions
-If the browser name is not "chrome", "firefox", or "edge" (case-insensitive), a fallback message is shown.
-Assumes that browser drivers are either auto-managed (like via WebDriverManager or Selenium 4+ with automatic driver management) or properly set up in system path.
-Assumes config.properties file is correctly set and accessible.
-
- */
