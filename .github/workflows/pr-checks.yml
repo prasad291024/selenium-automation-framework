@@ -104,8 +104,17 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Run Security Scan
-        run: echo "Security Scan completed successfully"
+      - name: OWASP Dependency Check
+        run: mvn dependency-check:check
+        continue-on-error: true
+
+      - name: Upload Security Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-report
+          path: target/dependency-check-report.html
+          retention-days: 30
 
   build-verification:
     name: Build Verification
@@ -123,30 +132,3 @@ jobs:
 
       - name: Verify Build
         run: mvn clean compile -q
-
-  security-scan:
-    name: security-scan
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'maven'
-
-      - name: OWASP Dependency Check
-        run: mvn dependency-check:check
-        continue-on-error: true
-
-      - name: Upload Security Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: security-report
-          path: target/dependency-check-report.html
-          retention-days: 30
