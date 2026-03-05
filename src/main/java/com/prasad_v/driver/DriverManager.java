@@ -19,6 +19,10 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 // WARNING: This uses static WebDriver - NOT thread-safe for parallel execution
 // For parallel tests, use DriverManagerTL instead
 public class DriverManager {
+    private DriverManager() {
+        /* This utility class should not be instantiated */
+    }
+
 
     // Static WebDriver instance accessible globally within the framework
     // NOTE: Static driver is NOT thread-safe - use DriverManagerTL for parallel execution
@@ -37,6 +41,26 @@ public class DriverManager {
     }
 
     // ======================
+    // Helper Method: Check if running in CI/CD
+    // ======================
+    // Returns true if running in CI/CD environment (GitHub Actions, Jenkins, etc.)
+    private static boolean isRunningInCI() {
+        // Check multiple CI/CD environment variables for broad compatibility
+        String gitHubActions = System.getenv("GITHUB_ACTIONS");
+        String ciEnv = System.getenv("CI");
+        String jenkinsHome = System.getenv("JENKINS_HOME");
+
+        // If any CI/CD indicator is found, we're in CI/CD
+        boolean isCI = gitHubActions != null || ciEnv != null || jenkinsHome != null;
+
+        if (isCI) {
+            System.out.println("[INFO] CI/CD environment detected - enabling headless mode");
+        }
+
+        return isCI;
+    }
+
+    // ======================
     // Initialize WebDriver
     // ======================
     // This method reads the browser type from properties file and launches the appropriate browser
@@ -47,6 +71,9 @@ public class DriverManager {
         // Convert browser name to lowercase to make comparison case-insensitive
         browser = browser.toLowerCase();
 
+        // Detect if running in CI/CD environment
+        boolean isCIEnvironment = isRunningInCI();
+
         // Select browser based on value read from config
         switch (browser) {
 
@@ -56,6 +83,12 @@ public class DriverManager {
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--start-maximized");
                 edgeOptions.addArguments("--guest");
+
+                // Add headless mode if in CI/CD
+                if (isCIEnvironment) {
+                    edgeOptions.addArguments("--headless");
+                }
+
                 driver = new EdgeDriver(edgeOptions);
                 break;
 
@@ -63,39 +96,55 @@ public class DriverManager {
             case "chrome":
                 // Create ChromeOptions to configure browser settings
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--start-maximized"); // open in maximized window
 
-                // ============ ADD THESE LINES FOR CI/CD SUPPORT ============
-                // Check if running in CI/CD environment (GitHub Actions)
-                // When GITHUB_ACTIONS env variable is set, use headless mode
-                if (System.getenv("GITHUB_ACTIONS") != null) {
-                    // Headless mode - run without GUI (for CI/CD)
-                    chromeOptions.addArguments("--headless");
-                    chromeOptions.addArguments("--no-sandbox");
-                    chromeOptions.addArguments("--disable-dev-shm-usage");
-                    chromeOptions.addArguments("--disable-gpu");
-                    chromeOptions.addArguments("--window-size=1920,1080");
+                // Always add these arguments
+                chromeOptions.addArguments("--start-maximized");
+
+                // ============ CI/CD HEADLESS MODE ============
+                // If running in CI/CD environment, add headless arguments
+                if (isCIEnvironment) {
+                    System.out.println("[INFO] Configuring Chrome for headless execution");
+
+                    // Essential headless arguments
+                    chromeOptions.addArguments("--headless=new");           // New headless mode (more stable)
+                    chromeOptions.addArguments("--no-sandbox");             // Required for Docker/CI environments
+                    chromeOptions.addArguments("--disable-dev-shm-usage");  // Prevent memory issues in CI/CD
+                    chromeOptions.addArguments("--disable-gpu");            // Disable GPU (not available in CI/CD)
+                    chromeOptions.addArguments("--window-size=1920,1080");  // Set window size
+                    chromeOptions.addArguments("--disable-extensions");     // Disable extensions
+                    chromeOptions.addArguments("--disable-plugins");        // Disable plugins
+                    chromeOptions.addArguments("--disable-infobars");       // Remove infobars
+                    chromeOptions.addArguments("--disable-notifications");  // Disable notifications
+                    chromeOptions.addArguments("--disable-default-apps");   // Disable default apps
+                    chromeOptions.addArguments("--single-process");         // Single process (for CI/CD)
                 }
-                // ============ END CI/CD SUPPORT CODE ============
+                // ============ END CI/CD HEADLESS MODE ============
 
-                driver = new ChromeDriver(chromeOptions);        // launch Chrome with options
+                // Launch Chrome with configured options
+                driver = new ChromeDriver(chromeOptions);
+
+                if (isCIEnvironment) {
+                    System.out.println("[INFO] Chrome launched in headless mode");
+                }
                 break;
 
             // If browser = firefox
             case "firefox":
                 // Create FirefoxOptions to configure browser settings
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments("--start-maximized"); // open in maximized window
+                firefoxOptions.addArguments("--start-maximized");
 
-                // ============ ADD THESE LINES FOR CI/CD SUPPORT ============
-                // Check if running in CI/CD environment (GitHub Actions)
-                if (System.getenv("GITHUB_ACTIONS") != null) {
-                    // Headless mode for Firefox
+                // Add headless mode if in CI/CD
+                if (isCIEnvironment) {
+                    System.out.println("[INFO] Configuring Firefox for headless execution");
                     firefoxOptions.addArguments("--headless");
                 }
-                // ============ END CI/CD SUPPORT CODE ============
 
-                driver = new FirefoxDriver(firefoxOptions);       // launch Firefox with options
+                driver = new FirefoxDriver(firefoxOptions);
+
+                if (isCIEnvironment) {
+                    System.out.println("[INFO] Firefox launched in headless mode");
+                }
                 break;
 
             // If browser value is not supported or invalid
@@ -113,8 +162,14 @@ public class DriverManager {
     public static void down() {
         // Check if driver is already initialized
         if (getDriver() != null) {
-            driver.quit(); // Close all browser windows and end session
-            driver = null; // Prevents stale driver access
+            try {
+                driver.quit(); // Close all browser windows and end session
+                driver = null; // Prevents stale driver access
+                System.out.println("[INFO] WebDriver closed successfully");
+            } catch (Exception e) {
+                System.out.println("[WARNING] Error closing WebDriver: " + e.getMessage());
+                driver = null;
+            }
         }
     }
 }
