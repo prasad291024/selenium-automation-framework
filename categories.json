@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Product Defects",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*AssertionError.*"
+  },
+  {
+    "name": "Test Defects",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*NullPointerException.*|.*NoSuchElementException.*"
+  },
+  {
+    "name": "Timeout Issues",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*TimeoutException.*"
+  },
+  {
+    "name": "Configuration Issues",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*WebDriverException.*|.*SessionNotCreatedException.*"
+  }
+]
