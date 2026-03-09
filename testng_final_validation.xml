@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Final Validation Suite" parallel="tests" thread-count="3">
+    
+    <test name="UI Tests - Parallel">
+        <classes>
+            <class name="com.prasad_v.tests.TestVWOLogin_04_PropertyReader_DriverManager_POM_CommonToAll"/>
+            <class name="com.prasad_v.tests.examples.TestVWOLoginWithAllure"/>
+        </classes>
+    </test>
+    
+    <test name="API Tests">
+        <classes>
+            <class name="com.prasad_v.tests.examples.TestAPIExample"/>
+        </classes>
+    </test>
+    
+    <test name="Utility Tests">
+        <classes>
+            <class name="com.prasad_v.tests.TestUtilitiesVerification"/>
+        </classes>
+    </test>
+    
+</suite>
