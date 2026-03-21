@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Docker Grid Suite" parallel="tests" thread-count="2">
+<suite name="Docker Grid Suite" parallel="tests" thread-count="3">
     
     <test name="Chrome on Grid">
         <parameter name="browser" value="chrome"/>
@@ -11,6 +11,13 @@
     
     <test name="Firefox on Grid">
         <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.prasad_v.tests.examples.TestDockerGrid"/>
+        </classes>
+    </test>
+
+    <test name="Edge on Grid">
+        <parameter name="browser" value="edge"/>
         <classes>
             <class name="com.prasad_v.tests.examples.TestDockerGrid"/>
         </classes>
