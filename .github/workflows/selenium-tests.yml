@@ -2,18 +2,33 @@ name: Selenium Test Automation
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
+    branches: [ master, develop ]
   schedule:
-    - cron: '0 2 * * *'  # Daily at 2 AM
+    - cron: '0 2 * * *'   # Nightly at 2 AM UTC
+  workflow_dispatch:        # Manual trigger
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        required: true
+        default: 'qa'
+        type: choice
+        options: [ qa, prod ]
+      browser:
+        description: 'Browser to run tests on'
+        required: true
+        default: 'chrome'
+        type: choice
+        options: [ chrome, firefox ]
 
 jobs:
+
   test:
+    name: 🧪 Run Tests (${{ matrix.browser }} / ${{ github.event.inputs.environment || 'qa' }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        browser: [chrome, firefox]
+        browser: ${{ github.event_name == 'workflow_dispatch' && fromJSON(format('["{0}"]', github.event.inputs.browser)) || fromJSON('["chrome", "firefox"]') }}
 
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +38,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
+          cache: 'maven'
 
       - name: Setup Chrome
         if: matrix.browser == 'chrome'
@@ -38,22 +53,57 @@ jobs:
           firefox-version: latest
 
       - name: Run Tests
-        run: mvn clean test -Dbrowser=${{ matrix.browser }} -Dsurefire.suiteXmlFiles=testng_vwo_pom.xml
+        run: |
+          mvn clean test \
+            -Dbrowser=${{ matrix.browser }} \
+            -Denv=${{ github.event.inputs.environment || 'qa' }} \
+            -Dsurefire.suiteXmlFiles=testng_vwo_pom.xml
 
       - name: Generate Allure Report
         if: always()
         run: mvn allure:report
 
-      - name: Upload Allure Results
+      - name: Upload Allure Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ matrix.browser }}
-          path: allure-results/
+          name: allure-report-${{ matrix.browser }}
+          path: target/site/allure-maven-plugin/
+          retention-days: 30
 
-      - name: Upload Screenshots
+      - name: Upload Screenshots on Failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: screenshots-${{ matrix.browser }}
           path: screenshots/
+          retention-days: 7
+
+      - name: Notify Slack - Test Run Complete
+        if: always()
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "${{ job.status == 'success' && '✅' || '❌' }} *Test Run ${{ job.status }}* | Browser: `${{ matrix.browser }}` | Env: `${{ github.event.inputs.environment || 'qa' }}`\n*Branch*: `${{ github.ref_name }}`\n*Triggered by*: ${{ github.actor }}\n*Run*: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+  nightly-report:
+    name: 📊 Nightly Summary
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'schedule' && always()
+    steps:
+      - name: Notify Slack - Nightly Summary
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "🌙 *Nightly Test Run Complete*\n*Status*: ${{ needs.test.result == 'success' && '✅ All Passed' || '❌ Some Failed' }}\n*Branch*: `master`\n*Run*: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
