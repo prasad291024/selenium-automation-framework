@@ -6,6 +6,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
@@ -27,17 +28,22 @@ public class TestDockerGrid {
     @Parameters({"browser"})
     public void setUp(String browser) throws Exception {
         LoggerUtil.info("Setting up Docker Grid test with browser: " + browser);
-        
-        String gridUrl = "http://localhost:4444/wd/hub";
-        
+
+        String gridUrl = System.getProperty("grid.url", "http://localhost:4444/wd/hub");
+
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             driver = new RemoteWebDriver(new URL(gridUrl), options);
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             driver = new RemoteWebDriver(new URL(gridUrl), options);
+        } else if (browser.equalsIgnoreCase("edge")) {
+            EdgeOptions options = new EdgeOptions();
+            driver = new RemoteWebDriver(new URL(gridUrl), options);
+        } else {
+            throw new IllegalArgumentException("Unsupported browser for grid: " + browser);
         }
-        
+
         LoggerUtil.info("Driver initialized on Grid");
     }
 
