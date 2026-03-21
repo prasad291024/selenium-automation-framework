@@ -1,10 +1,12 @@
 package com.prasad_v.tests.examples;
 
 import com.prasad_v.base.CommonToAllTest;
-import com.prasad_v.pages.pageObjectModel.improved_POM.DashBoardPage;
-import com.prasad_v.pages.pageObjectModel.improved_POM.LoginPage;
+import com.prasad_v.driver.DriverManagerTL;
+import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.DashBoardPage;
+import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.LoginPage;
 import com.prasad_v.utils.ConfigManager;
 import io.qameta.allure.*;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +24,7 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
     @Issue("VWO-123")
     @TmsLink("TC-001")
     public void testValidLogin() {
+        WebDriver driver = DriverManagerTL.getDriver();
         LoginPage loginPage = new LoginPage(driver);
         
         Allure.step("Navigate to VWO login page");
@@ -32,7 +35,8 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
         String password = ConfigManager.get("password");
         
         Allure.step("Click login button");
-        DashBoardPage dashBoardPage = loginPage.loginToVWOValidCreds(username, password);
+        loginPage.loginToVWOLoginValidCreds(username, password);
+        DashBoardPage dashBoardPage = new DashBoardPage(driver);
         
         Allure.step("Verify user is logged in");
         String loggedInUser = dashBoardPage.loggedInUserName();
@@ -47,6 +51,7 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
     @Description("Test login with invalid credentials and verify error message")
     @Owner("Prasad")
     public void testInvalidLogin() {
+        WebDriver driver = DriverManagerTL.getDriver();
         LoginPage loginPage = new LoginPage(driver);
         
         Allure.step("Navigate to VWO login page");
