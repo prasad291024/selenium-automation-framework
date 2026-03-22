@@ -181,6 +181,21 @@ pipeline {
 
             archiveArtifacts artifacts: 'target/surefire-reports/**,target/allure-results/**,target/site/**,screenshots/**', allowEmptyArchive: true
             cleanWs()
-        }
+success {
+        slackSend(
+            webhookUrl: "${env.SLACK_WEBHOOK_URL}",
+            channel: 'selenium-automation-framework',
+            message: "✅ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} PASSED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
+            color: 'good'
+        )
+    }
+
+    failure {
+        slackSend(
+            webhookUrl: "${env.SLACK_WEBHOOK_URL}",
+            channel: '#selenium-automation-framework',
+            message: "❌ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
+            color: 'danger'
+        )
     }
 }
