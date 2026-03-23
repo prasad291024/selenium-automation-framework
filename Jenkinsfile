@@ -5,10 +5,10 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome', 'firefox', 'edge'], description: 'Browser for non-grid local suites')
         choice(name: 'ENV', choices: ['qa', 'prod'], description: 'Target test environment')
         choice(name: 'SUITE', choices: [
-            'testng_vwo_pom.xml',
-            'testng_api_tests.xml',
-            'testng_docker_grid.xml',
-            'testng_final_validation.xml'
+                'testng_vwo_pom.xml',
+                'testng_api_tests.xml',
+                'testng_docker_grid.xml',
+                'testng_final_validation.xml'
         ], description: 'TestNG suite to run')
         booleanParam(name: 'USE_DOCKER_GRID', defaultValue: true, description: 'Start Selenium Grid using Docker Compose')
     }
@@ -181,21 +181,23 @@ pipeline {
 
             archiveArtifacts artifacts: 'target/surefire-reports/**,target/allure-results/**,target/site/**,screenshots/**', allowEmptyArchive: true
             cleanWs()
-success {
-        slackSend(
-            webhookUrl: "${env.SLACK_WEBHOOK_URL}",
-            channel: 'selenium-automation-framework',
-            message: "✅ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} PASSED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
-            color: 'good'
-        )
-    }
+            success {
+                slackSend(
+                        webhookUrl: "${env.SLACK_WEBHOOK_URL}",
+                        channel: 'selenium-automation-framework',
+                        message: "✅ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} PASSED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
+                        color: 'good'
+                )
+            }
 
-    failure {
-        slackSend(
-            webhookUrl: "${env.SLACK_WEBHOOK_URL}",
-            channel: '#selenium-automation-framework',
-            message: "❌ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
-            color: 'danger'
-        )
+            failure {
+                slackSend(
+                        webhookUrl: "${env.SLACK_WEBHOOK_URL}",
+                        channel: '#selenium-automation-framework',
+                        message: "❌ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
+                        color: 'danger'
+                )
+            }
+        }
     }
 }
