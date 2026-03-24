@@ -183,19 +183,19 @@ pipeline {
             cleanWs()
             success {
                 slackSend(
-                        webhookUrl: "${env.SLACK_WEBHOOK_URL}",
+                        //tokenCredentialId: 'slack-token',
                         channel: 'selenium-automation-framework',
                         message: "✅ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} PASSED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
-                        color: 'good'
+                        color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
                 )
             }
 
             failure {
                 slackSend(
-                        webhookUrl: "${env.SLACK_WEBHOOK_URL}",
+                        //tokenCredentialId: 'slack-token',
                         channel: '#selenium-automation-framework',
                         message: "❌ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
-                        color: 'danger'
+                        color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
                 )
             }
         }
