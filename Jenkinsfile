@@ -126,8 +126,11 @@ pipeline {
                     if (params.SUITE == 'testng_docker_grid.xml' && !params.USE_DOCKER_GRID) {
                         error('testng_docker_grid.xml requires USE_DOCKER_GRID=true')
                     }
-                    if (params.SUITE == 'testng_api_tests.xml' && !env.REQRES_API_KEY?.trim()) {
-                        error('REQRES_API_KEY environment variable is required for testng_api_tests.xml')
+                    boolean hasReqresEnvKey = env.REQRES_API_KEY?.trim()
+                    boolean hasReqresJvmKey = (env.MAVEN_OPTS ?: '').contains('-Dreqres.api.key=')
+                            || (env.JAVA_TOOL_OPTIONS ?: '').contains('-Dreqres.api.key=')
+                    if (params.SUITE == 'testng_api_tests.xml' && !(hasReqresEnvKey || hasReqresJvmKey)) {
+                        error('ReqRes API key is required for testng_api_tests.xml. Set REQRES_API_KEY or pass -Dreqres.api.key via MAVEN_OPTS/JAVA_TOOL_OPTIONS.')
                     }
 
                     if (isUnix()) {
