@@ -9,9 +9,23 @@ import java.util.Map;
 public class APIUtil {
 
     private static RequestSpecification getRequestSpec(String baseUri) {
-        return RestAssured.given()
+        RequestSpecification spec = RestAssured.given()
                 .baseUri(baseUri)
                 .header("Content-Type", "application/json");
+
+        // ReqRes now requires API key authentication.
+        if (baseUri != null && baseUri.contains("reqres.in")) {
+            String apiKey = System.getProperty("reqres.api.key");
+            if (apiKey == null || apiKey.isBlank()) {
+                apiKey = System.getenv("REQRES_API_KEY");
+            }
+            if (apiKey == null || apiKey.isBlank()) {
+                throw new IllegalStateException(
+                        "Missing ReqRes API key. Set -Dreqres.api.key or REQRES_API_KEY env var.");
+            }
+            spec.header("x-api-key", apiKey);
+        }
+        return spec;
     }
 
     public static Response get(String baseUri, String endpoint) {

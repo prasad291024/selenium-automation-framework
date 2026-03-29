@@ -126,6 +126,9 @@ pipeline {
                     if (params.SUITE == 'testng_docker_grid.xml' && !params.USE_DOCKER_GRID) {
                         error('testng_docker_grid.xml requires USE_DOCKER_GRID=true')
                     }
+                    if (params.SUITE == 'testng_api_tests.xml' && !env.REQRES_API_KEY?.trim()) {
+                        error('REQRES_API_KEY environment variable is required for testng_api_tests.xml')
+                    }
 
                     if (isUnix()) {
                         sh """
@@ -178,26 +181,26 @@ pipeline {
                     }
                 }
             }
-
             archiveArtifacts artifacts: 'target/surefire-reports/**,target/allure-results/**,target/site/**,screenshots/**', allowEmptyArchive: true
             cleanWs()
-            success {
-                slackSend(
-                        //tokenCredentialId: 'slack-token',
-                        channel: 'selenium-automation-framework',
-                        message: "✅ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} PASSED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
-                        color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
-                )
-            }
+        }
 
-            failure {
-                slackSend(
-                        //tokenCredentialId: 'slack-token',
-                        channel: '#selenium-automation-framework',
-                        message: "❌ Build ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
-                        color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
-                )
-            }
+        success {
+            slackSend(
+                    //tokenCredentialId: 'slack-token',
+                    channel: '#selenium-automation-framework',
+                    message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} PASSED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
+                    color: 'good'
+            )
+        }
+
+        failure {
+            slackSend(
+                    //tokenCredentialId: 'slack-token',
+                    channel: '#selenium-automation-framework',
+                    message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILED\nDuration: ${currentBuild.durationString}\n${env.BUILD_URL}",
+                    color: 'danger'
+            )
         }
     }
 }
