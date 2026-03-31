@@ -27,8 +27,8 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
         WebDriver driver = DriverManagerTL.getDriver();
         LoginPage loginPage = new LoginPage(driver);
         
-        Allure.step("Navigate to VWO login page");
-        loginPage.openVWOUrl();
+        Allure.step("Navigate to login page");
+        loginPage.openAppUrl();
         
         Allure.step("Enter valid credentials");
         String username = ConfigManager.get("username");
@@ -54,8 +54,8 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
         WebDriver driver = DriverManagerTL.getDriver();
         LoginPage loginPage = new LoginPage(driver);
         
-        Allure.step("Navigate to VWO login page");
-        loginPage.openVWOUrl();
+        Allure.step("Navigate to login page");
+        loginPage.openAppUrl();
         
         Allure.step("Enter invalid credentials");
         String errorMsg = loginPage.loginToVWOLoginInvalidCreds("invalid@test.com", "wrongpass");

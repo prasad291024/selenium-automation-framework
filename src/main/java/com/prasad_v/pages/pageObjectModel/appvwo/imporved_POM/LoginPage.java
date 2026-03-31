@@ -1,4 +1,3 @@
-// Declares the package location of this class
 package com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM;
 
 import com.prasad_v.base.CommonToAllPage;
@@ -7,13 +6,13 @@ import com.prasad_v.utils.WaitHelpers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static com.prasad_v.driver.DriverManager.getDriver;
+import static com.prasad_v.driver.DriverManagerTL.getDriver;
 
 public class LoginPage extends CommonToAllPage {
 
     WebDriver driver;
 
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -24,30 +23,24 @@ public class LoginPage extends CommonToAllPage {
 
     public String loginToVWOLoginInvalidCreds(String user, String pwd) {
         LoggerUtil.info("Starting login with invalid credentials");
-        openVWOUrl();
-        
-        LoggerUtil.info("Entering username: " + user);
+        openAppUrl();
+        LoggerUtil.info("Entering username: " + user.replaceAll("[\r\n]", "_"));
         enterInput(username, user);
         enterInput(password, pwd);
-        
         LoggerUtil.info("Clicking login button");
         clickElement(signButton);
-        
         WaitHelpers.checkVisibility(getDriver(), error_message);
         String errorMsg = getText(error_message);
         LoggerUtil.info("Error message received: " + errorMsg);
-        
         return errorMsg;
     }
 
     public void loginToVWOLoginValidCreds(String user, String pwd) {
         LoggerUtil.info("Starting login with valid credentials");
-        openVWOUrl();
-        
-        LoggerUtil.info("Entering username: " + user);
+        openAppUrl();
+        LoggerUtil.info("Entering username: " + user.replaceAll("[\r\n]", "_"));
         enterInput(username, user);
         enterInput(password, pwd);
-        
         LoggerUtil.info("Clicking login button");
         clickElement(signButton);
         LoggerUtil.info("Login completed");
