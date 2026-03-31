@@ -8,6 +8,7 @@ public class ConfigManager {
 
     private static Properties properties;
     private static final String ENV = System.getProperty("env", "qa");
+    private static final String APP = System.getProperty("app", "");
 
     static {
         loadProperties();
@@ -15,17 +16,22 @@ public class ConfigManager {
 
     private static void loadProperties() {
         properties = new Properties();
-        String configPath = "src/main/resources/config/" + ENV + ".properties";
-        
+
+        // Per-app config: src/main/resources/config/{app}/{env}.properties
+        // Generic config: src/main/resources/config/{env}.properties
+        String configPath = APP.isEmpty()
+                ? "src/main/resources/config/" + ENV + ".properties"
+                : "src/main/resources/config/" + APP + "/" + ENV + ".properties";
+
         try (FileInputStream fis = new FileInputStream(configPath)) {
             properties.load(fis);
-            LoggerUtil.info("Loaded configuration for environment: " + ENV);
+            LoggerUtil.info("Loaded config: " + configPath);
         } catch (IOException e) {
-            LoggerUtil.warn("Environment config not found, loading default data.properties");
+            LoggerUtil.warn("Config not found at: " + configPath + " - falling back to data.properties");
             try (FileInputStream fis = new FileInputStream("src/main/resources/data.properties")) {
                 properties.load(fis);
             } catch (IOException ex) {
-                LoggerUtil.error("Failed to load properties", ex);
+                LoggerUtil.error("Failed to load any properties file", ex);
             }
         }
     }
@@ -36,5 +42,9 @@ public class ConfigManager {
 
     public static String getEnvironment() {
         return ENV;
+    }
+
+    public static String getApp() {
+        return APP;
     }
 }
