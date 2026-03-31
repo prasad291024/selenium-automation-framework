@@ -7,13 +7,13 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static com.prasad_v.driver.DriverManager.getDriver;
+import static com.prasad_v.driver.DriverManagerTL.getDriver;
 
 public class test_DDT_TestNG_POI_REAL_VWOLOGIN extends CommonToAllTest {
 
     @Test(dataProvider = "getData")
     public void test_vwo_login(String email, String password) {
-        System.out.println(email + " - "+ password);
+        System.out.println(email + " - " + password);
         getDriver().navigate().to(ConfigManager.get("url"));
         Assert.assertEquals(getDriver().getTitle(), ConfigManager.get("current_title"));
         Assert.assertEquals(getDriver().getCurrentUrl(), ConfigManager.get("current_url"));
@@ -24,7 +24,7 @@ public class test_DDT_TestNG_POI_REAL_VWOLOGIN extends CommonToAllTest {
     }
 
     @DataProvider(parallel = true)
-    public Object[][] getData(){
+    public Object[][] getData() {
         return UtilExcel.getTestDataFromExcel("sheet1");
     }
 }

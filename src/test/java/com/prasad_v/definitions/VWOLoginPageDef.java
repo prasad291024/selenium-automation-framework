@@ -32,8 +32,8 @@ public class VWOLoginPageDef {
 
     @Given("User is on VWO login page")
     public void userIsOnVWOLoginPage() {
-        LoggerUtil.info("Navigating to VWO login page");
-        loginPage.openVWOUrl();
+        LoggerUtil.info("Navigating to application login page");
+        loginPage.openAppUrl();
     }
 
     @When("User enters username as {string} and password as {string}")

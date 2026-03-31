@@ -1,78 +1,41 @@
-// Package declaration - placing this class inside 'base' package
 package com.prasad_v.base;
 
-// Importing custom utility class for reading property files
-import com.prasad_v.utils.PropertiesReader;
-
-// Selenium imports for interacting with web elements
+import com.prasad_v.utils.ConfigManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-// Importing static method 'getDriver()' from DriverManager class
-// This provides access to the WebDriver instance globally
-import static com.prasad_v.driver.DriverManager.getDriver;
+import static com.prasad_v.driver.DriverManagerTL.getDriver;
 
-// This class contains common reusable functions shared across all page object classes
 public class CommonToAllPage {
 
-    // Constructor of the class. Runs when an object of this class is created.
-    public CommonToAllPage() {
-        // Developer's note: You can place setup-related logic here like:
-        // - Opening a database connection
-        // - Initializing files, logging setup, etc.
-        // Currently, it's a placeholder with no logic
+    public void openUrl(String url) {
+        getDriver().get(url);
     }
 
-    // Function to open the VWO (Visual Website Optimizer) application URL
-    // URL is fetched from the properties file using the key 'url'
-    public void openVWOUrl() {
-        getDriver().get(PropertiesReader.readKey("url"));
+    public void openAppUrl() {
+        getDriver().get(ConfigManager.get("url"));
     }
 
-    // Function to open the OrangeHRM application URL
-    // URL is fetched from the properties file using the key 'ohr_url'
-    public void openOrangeHRMUrl() {
-        getDriver().get(PropertiesReader.readKey("ohr_url"));
-    }
-
-    // ====================
-    // Element Click Methods
-    // ====================
-
-    // Overloaded method #1: Accepts a By locator to find and click on the element
     public void clickElement(By by) {
         getDriver().findElement(by).click();
     }
 
-    // Overloaded method #2: Accepts an already located WebElement and clicks it
     public void clickElement(WebElement by) {
         by.click();
     }
 
-    // ==========================
-    // Input Text into Text Fields
-    // ==========================
-
-    // Overloaded method #1: Accepts a By locator and text input to enter in a field
     public void enterInput(By by, String key) {
         getDriver().findElement(by).sendKeys(key);
     }
 
-    // Overloaded method #2: Accepts a WebElement and text input to enter in a field
     public void enterInput(WebElement by, String key) {
         by.sendKeys(key);
     }
 
-    // =======================
-    // Get Text from WebElement
-    // =======================
-
-    // Overloaded method #1: Accepts a By locator and returns the visible text of the element
     public String getText(By by) {
         return getDriver().findElement(by).getText();
     }
 
-    // Overloaded method #2: Accepts a WebElement and returns its visible text
     public String getText(WebElement by) {
         return by.getText();
     }
