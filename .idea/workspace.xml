@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="28d856a4-c9d7-42c5-b720-9a4a8212818a" name="Changes" comment="xml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/Jenkinsfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +67,12 @@
     "TestNG.C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/testng_vwo_pom.xml.executor": "Run",
     "TestNG.TestVWOLogin_01_NormalScript_POM.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/jenkins-setup-extended1",
+    "git-widget-placeholder": "feature/cucumber-bdd-integration",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Prasad/Projects/IdeaProjects/ATB10xSeleniumAdvanceFramework",
+    "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true"
   }
