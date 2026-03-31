@@ -24,7 +24,7 @@ public class LoginPage extends CommonToAllPage {
     public String loginToVWOLoginInvalidCreds(String user, String pwd) {
         LoggerUtil.info("Starting login with invalid credentials");
         openAppUrl();
-        LoggerUtil.info("Entering username: " + user);
+        LoggerUtil.info("Entering username: " + user.replaceAll("[\r\n]", "_"));
         enterInput(username, user);
         enterInput(password, pwd);
         LoggerUtil.info("Clicking login button");
@@ -38,7 +38,7 @@ public class LoginPage extends CommonToAllPage {
     public void loginToVWOLoginValidCreds(String user, String pwd) {
         LoggerUtil.info("Starting login with valid credentials");
         openAppUrl();
-        LoggerUtil.info("Entering username: " + user);
+        LoggerUtil.info("Entering username: " + user.replaceAll("[\r\n]", "_"));
         enterInput(username, user);
         enterInput(password, pwd);
         LoggerUtil.info("Clicking login button");
