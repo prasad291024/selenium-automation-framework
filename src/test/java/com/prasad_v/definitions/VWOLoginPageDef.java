@@ -1,66 +1,79 @@
 package com.prasad_v.definitions;
 
+import com.prasad_v.driver.DriverManagerTL;
+import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.DashBoardPage;
+import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.LoginPage;
+import com.prasad_v.utils.LoggerUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
-import java.time.Duration;
+import static org.assertj.core.api.Assertions.assertThat;
 
+public class VWOLoginPageDef {
 
-public class
-VWOLoginPageDef {
-
-    private static WebDriver driver;
-    public final static int TIMEOUT = 10;
+    private LoginPage loginPage;
+    private DashBoardPage dashBoardPage;
+    private String capturedUsername;
+    private String capturedPassword;
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TIMEOUT));
-        driver.manage().window().maximize();
+        LoggerUtil.info("Initializing browser for Cucumber scenario");
+        DriverManagerTL.init("chrome");
+        loginPage = new LoginPage(DriverManagerTL.getDriver());
+        dashBoardPage = new DashBoardPage(DriverManagerTL.getDriver());
     }
 
-    @Given("User is on Login page {string}")
-    public void loginTest(String url) {
-        driver.get(url);
+    @Given("User is on VWO login page")
+    public void userIsOnVWOLoginPage() {
+        LoggerUtil.info("Navigating to VWO login page");
+        loginPage.openVWOUrl();
     }
 
     @When("User enters username as {string} and password as {string}")
-    public void goToHomePage(String userName, String passWord) throws InterruptedException {
-
-        // login to application
-        driver.findElement(By.name("username")).sendKeys(userName);
-        driver.findElement(By.name("password")).sendKeys(passWord);
-        driver.findElement(By.xpath("//button[@id=\"js-login-btn\"]")).click();
-        Thread.sleep(3000);
-        // go the next page
-
+    public void userEntersCredentials(String username, String password) {
+        LoggerUtil.info("Entering credentials - username: " + username);
+        capturedUsername = username;
+        capturedPassword = password;
     }
 
-    @Then("User should be able to login sucessfully and new page {string}")
-    public void userShouldBeAbleToLoginSucessfullyAndNewPage(String arg0) {
-
-        String homePageHeading = driver.findElement(By.xpath("//h1[normalize-space()=\"Dashboard\"]")).getText();
-        //Verify new page - HomePage
-        Assert.assertEquals(homePageHeading, arg0);
-
+    @Then("User should be redirected to Dashboard")
+    public void userShouldBeRedirectedToDashboard() {
+        LoggerUtil.info("Attempting valid login and verifying dashboard");
+        loginPage.loginToVWOLoginValidCreds(capturedUsername, capturedPassword);
+        String loggedInUser = dashBoardPage.loggedInUserName();
+        assertThat(loggedInUser)
+                .as("Logged in username should not be empty")
+                .isNotNull()
+                .isNotEmpty();
+        LoggerUtil.info("Login successful. User: " + loggedInUser);
     }
 
-    @Then("User should be able to see error message {string}")
-    public void verifyErrorMessage(String expectedErrorMessage) {
-        String actualErrorMessage = driver.findElement(By.xpath("//div[@id=\"js-notification-box-msg\"]")).getText();
-        // Verify Error Message
-        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
+    @Then("User should see error message {string}")
+    public void userShouldSeeErrorMessage(String expectedError) {
+        LoggerUtil.info("Attempting invalid login and verifying error message");
+        String actualError = loginPage.loginToVWOLoginInvalidCreds(capturedUsername, capturedPassword);
+        assertThat(actualError)
+                .as("Error message should match expected")
+                .contains(expectedError);
+        LoggerUtil.info("Error message verified: " + actualError);
     }
 
     @After
-    public void teardown() {
-        driver.quit();
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            LoggerUtil.warn("Scenario FAILED: " + scenario.getName() + " - capturing screenshot");
+            byte[] screenshot = ((TakesScreenshot) DriverManagerTL.getDriver())
+                    .getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", "Failure Screenshot");
+        }
+        LoggerUtil.info("Tearing down browser after scenario: " + scenario.getName());
+        DriverManagerTL.quit();
     }
 }
