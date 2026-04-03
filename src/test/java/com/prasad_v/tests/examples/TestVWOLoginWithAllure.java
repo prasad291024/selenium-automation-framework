@@ -2,8 +2,8 @@ package com.prasad_v.tests.examples;
 
 import com.prasad_v.base.CommonToAllTest;
 import com.prasad_v.driver.DriverManagerTL;
-import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.DashBoardPage;
-import com.prasad_v.pages.pageObjectModel.appvwo.imporved_POM.LoginPage;
+import com.prasad_v.apps.vwo.pages.DashBoardPage;
+import com.prasad_v.apps.vwo.pages.LoginPage;
 import com.prasad_v.utils.ConfigManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
