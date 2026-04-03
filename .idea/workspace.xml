@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28d856a4-c9d7-42c5-b720-9a4a8212818a" name="Changes" comment="xml">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prasad_v/pages/pageObjectModel/appvwo/imporved_POM/LoginPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/examples/TestVWOLoginWithAllure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prasad_v/tests/examples/TestVWOLoginWithAllure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testng_vwo_pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/testng_vwo_pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +68,7 @@
     "TestNG.C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/testng_vwo_pom.xml.executor": "Run",
     "TestNG.TestVWOLogin_01_NormalScript_POM.executor": "Run",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/cucumber-bdd-integration",
+    "git-widget-placeholder": "feature/cleanup-legacy-code",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",

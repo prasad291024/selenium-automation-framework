@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="methods" thread-count="2">
-    <test verbose="2" preserve-order="true" name="VWO Login Tests">
+<suite name="VWO Test Suite" parallel="methods" thread-count="2">
+    <test name="VWO Login Tests">
         <classes>
-            <class name="com.prasad_v.tests.pom.vwo.TestVWOLogin_01_NormalScript_POM">
-                <methods>
-                    <include name="test_negative_vwo_login"/>
-                    <include name="test_positive_vwo_login"/>
-                </methods>
-            </class>
+            <class name="com.prasad_v.apps.vwo.tests.VWOLoginTest"/>
         </classes>
     </test>
 </suite>
