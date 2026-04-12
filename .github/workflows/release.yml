@@ -6,9 +6,8 @@ on:
       - 'v*.*.*'
 
 jobs:
-
   release:
-    name: 🚀 Create Release
+    name: Create Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,16 +29,21 @@ jobs:
         with:
           name: Release ${{ github.ref_name }}
           body: |
-            ## 🚀 Release ${{ github.ref_name }}
+            ## Release ${{ github.ref_name }}
 
             ### What's Changed
             See [CHANGELOG](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}) for full details.
 
-            ### Quick Start
+            ### Quick Start (Multi-App)
             ```bash
             git clone https://github.com/${{ github.repository }}.git
             cd selenium-automation-framework
-            mvn test -Dsurefire.suiteXmlFiles=testng_vwo_pom.xml
+
+            # VWO UI suite
+            mvn test -Dapp=vwo -Dsurefire.suiteXmlFiles=testng_vwo.xml
+
+            # OrangeHRM UI suite
+            mvn test -Dapp=orangehrm -Dsurefire.suiteXmlFiles=testng_orangehrm.xml
             ```
           draft: false
           prerelease: false
@@ -47,11 +51,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Notify Slack - New Release
+        if: secrets.SLACK_WEBHOOK_URL != ''
         uses: slackapi/slack-github-action@v1.26.0
         with:
           payload: |
             {
-              "text": "🚀 *New Release Published*: `${{ github.ref_name }}`\n*Repository*: ${{ github.repository }}\n*Link*: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
+              "text": "*New Release Published*: `${{ github.ref_name }}`\n*Repository*: `${{ github.repository }}`\n*Link*: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
