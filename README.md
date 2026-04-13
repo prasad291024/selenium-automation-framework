@@ -108,6 +108,49 @@ Run Katalon UI:
 
 ```bash
 mvn clean test -Dapp=katalon -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_katalon.xml
+
+- `testng_vwo.xml` - VWO UI tests
+- `testng_vwo_bdd.xml` - VWO BDD runner
+- `testng_orangehrm.xml` - OrangeHRM UI tests
+- `testng_orangehrm_bdd.xml` - OrangeHRM BDD runner
+- `testng_api_tests.xml` - API tests
+- `testng_docker_grid.xml` - Selenium Grid tests
+
+## Local Execution
+
+Prerequisites:
+- Java 17+
+- Maven 3.6+
+- Chrome or Firefox installed
+
+Run VWO UI:
+
+```bash
+mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_vwo.xml
+```
+
+Run OrangeHRM UI:
+
+```bash
+mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_orangehrm.xml
+```
+
+Run VWO BDD:
+
+```bash
+mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_vwo_bdd.xml
+```
+
+Run OrangeHRM BDD:
+
+```bash
+mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_orangehrm_bdd.xml
+```
+
+Run API suite (ReqRes key required):
+
+```bash
+mvn clean test -Dsurefire.suiteXmlFiles=testng_api_tests.xml -Dreqres.api.key=<your_key>
 ```
 
 ## CI/CD (Multi-App)
@@ -141,5 +184,6 @@ mvn clean test -Dapp=katalon -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=
 
 ## Roadmap (Next)
 
+- Katalon test implementation
 - Unified retry strategy across apps
 - App-level data-driven datasets (Excel/POI)
