@@ -40,6 +40,9 @@ jobs:
           - app: orangehrm
             browser: chrome
             suite: testng_orangehrm.xml
+          - app: katalon
+            browser: chrome
+            suite: testng_katalon.xml
     steps:
       - uses: actions/checkout@v4
 

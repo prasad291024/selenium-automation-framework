@@ -8,7 +8,7 @@ Production-focused automation framework with Selenium 4, TestNG, Maven, and CI/C
 | --- | --- | --- |
 | `vwo` | Active | POM + TestNG + BDD + config |
 | `orangehrm` | Active | POM + TestNG + BDD + config |
-| `katalon` | In progress | config only |
+| `katalon` | Active | POM + TestNG + config |
 
 ## Tech Stack
 
@@ -32,6 +32,7 @@ src/
     java/com/prasad_v/apps/
       vwo/pages/
       orangehrm/pages/
+      katalon/pages/
     java/com/prasad_v/utils/
     resources/
       config/
@@ -50,6 +51,7 @@ src/
       orangehrm/tests/
       orangehrm/runner/
       orangehrm/definitions/
+      katalon/tests/
     resources/features/
       vwo/
       orangehrm/
@@ -61,6 +63,7 @@ src/
 - `testng_vwo_bdd.xml` - VWO BDD runner
 - `testng_orangehrm.xml` - OrangeHRM UI tests
 - `testng_orangehrm_bdd.xml` - OrangeHRM BDD runner
+- `testng_katalon.xml` - Katalon UI tests
 - `testng_api_tests.xml` - API tests
 - `testng_docker_grid.xml` - Selenium Grid tests
 
@@ -101,17 +104,23 @@ Run API suite (ReqRes key required):
 mvn clean test -Dsurefire.suiteXmlFiles=testng_api_tests.xml -Dreqres.api.key=<your_key>
 ```
 
+Run Katalon UI:
+
+```bash
+mvn clean test -Dapp=katalon -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_katalon.xml
+```
+
 ## CI/CD (Multi-App)
 
 ### GitHub Actions
 
 - `.github/workflows/pr-checks.yml`
   - Build verification
-  - UI matrix tests for `vwo` and `orangehrm` (Chrome)
+  - UI matrix tests for `vwo`, `orangehrm`, and `katalon` (Chrome)
   - Checkstyle, Sonar (optional), OWASP scan, Docker config validation
 - `.github/workflows/selenium-tests.yml`
   - Push + nightly + manual runs
-  - Matrix across apps (`vwo`, `orangehrm`), suite types (`ui`, `bdd`), and browser
+  - Matrix across apps (`vwo`, `orangehrm`, `katalon`), suite types (`ui`, `bdd`), and browser
   - Manual input supports single-app or all-app execution
 - `.github/workflows/release.yml`
   - Tag-based release workflow
@@ -132,6 +141,5 @@ mvn clean test -Dsurefire.suiteXmlFiles=testng_api_tests.xml -Dreqres.api.key=<y
 
 ## Roadmap (Next)
 
-- Katalon test implementation
 - Unified retry strategy across apps
 - App-level data-driven datasets (Excel/POI)

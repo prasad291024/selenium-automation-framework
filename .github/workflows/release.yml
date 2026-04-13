@@ -44,6 +44,9 @@ jobs:
 
             # OrangeHRM UI suite
             mvn test -Dapp=orangehrm -Dsurefire.suiteXmlFiles=testng_orangehrm.xml
+
+            # Katalon UI suite
+            mvn test -Dapp=katalon -Dsurefire.suiteXmlFiles=testng_katalon.xml
             ```
           draft: false
           prerelease: false

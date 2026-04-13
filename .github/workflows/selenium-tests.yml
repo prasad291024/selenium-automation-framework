@@ -24,7 +24,7 @@ on:
         required: true
         default: all
         type: choice
-        options: [ all, vwo, orangehrm ]
+        options: [ all, vwo, orangehrm, katalon ]
       suite_type:
         description: Suite type to run
         required: true
@@ -65,6 +65,14 @@ jobs:
             browser: chrome
             suite: testng_orangehrm_bdd.xml
             suite_type: bdd
+          - app: katalon
+            browser: chrome
+            suite: testng_katalon.xml
+            suite_type: ui
+          - app: katalon
+            browser: firefox
+            suite: testng_katalon.xml
+            suite_type: ui
 
     steps:
       - uses: actions/checkout@v4
