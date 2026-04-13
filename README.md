@@ -1,141 +1,137 @@
-# 🚀 Selenium Automation Framework (with Java)
+# Selenium Automation Framework (Java + TestNG)
 
-A robust, scalable, and production-ready Selenium Automation Framework built with Java 17, TestNG, and modern DevOps practices. Supports parallel execution, multiple environments, cloud grids, Docker, and comprehensive reporting.
+Production-focused automation framework with Selenium 4, TestNG, Maven, and CI/CD for multi-application UI and API testing.
 
----
+## Current App Status
 
-## 📌 Key Features
+| App | Status | Coverage |
+| --- | --- | --- |
+| `vwo` | Active | POM + TestNG + BDD + config |
+| `orangehrm` | Active | POM + TestNG + BDD + config |
+| `katalon` | In progress | config only |
 
-### Core Stack
-- ✅ **Java 17** with Selenium 4.31.0
-- ✅ **TestNG 7.11.0** for test orchestration
-- ✅ **Maven** build automation
-- ✅ **Page Object Model (POM)** design pattern
+## Tech Stack
 
-### Execution Capabilities
-- 🔐 **ThreadLocal** for parallel execution
-- ⚡ **Parallel Testing** (methods/tests/classes)
-- 🌍 **Multi-Environment** (QA/Prod via ConfigManager)
-- ☁️ **Cloud Grid** (BrowserStack, LambdaTest)
-- 🐳 **Docker Grid** (Selenium Grid with docker-compose)
-- 🖥️ **Local Execution** (Chrome, Firefox, Edge)
+- Java 17
+- Selenium 4
+- TestNG
+- Maven
+- Cucumber (BDD)
+- REST Assured
+- Allure
+- JaCoCo
+- Checkstyle
+- OWASP Dependency Check
+- GitHub Actions + Jenkins
 
-### Quality & Reporting
-- 📊 **Allure Reports** with categories and environment info
-- 📸 **Auto Screenshots** on failure
-- 📝 **Log4j2 Logging** with LoggerUtil
-- 🧪 **AssertJ** fluent assertions
-- 📈 **JaCoCo** code coverage
-- ✅ **Checkstyle** code quality
-- 🔒 **OWASP** security scanning
+## Project Structure
 
-### Testing Types
-- 🌐 **UI Testing** (Selenium WebDriver)
-- 🔌 **API Testing** (REST Assured)
-- 🗄️ **Database Testing** (JDBC)
-- 📁 **Data-Driven** (Excel with Apache POI)
+```text
+src/
+  main/
+    java/com/prasad_v/apps/
+      vwo/pages/
+      orangehrm/pages/
+    java/com/prasad_v/utils/
+    resources/
+      config/
+        vwo/
+          qa.properties
+          prod.properties
+        orangehrm/
+          qa.properties
+        katalon/
+          qa.properties
+  test/
+    java/com/prasad_v/apps/
+      vwo/tests/
+      vwo/runner/
+      vwo/definitions/
+      orangehrm/tests/
+      orangehrm/runner/
+      orangehrm/definitions/
+    resources/features/
+      vwo/
+      orangehrm/
+```
 
-### CI/CD
-- 🚀 **GitHub Actions** workflows
-- ✅ **PR Checks** (build, test, quality, security)
-- 🔐 **Branch Protection** rules
-- 📦 **Artifact Management**
+## TestNG Suites
 
----
+- `testng_vwo.xml` - VWO UI tests
+- `testng_vwo_bdd.xml` - VWO BDD runner
+- `testng_orangehrm.xml` - OrangeHRM UI tests
+- `testng_orangehrm_bdd.xml` - OrangeHRM BDD runner
+- `testng_api_tests.xml` - API tests
+- `testng_docker_grid.xml` - Selenium Grid tests
 
-## 🚀 Quick Start
+## Local Execution
 
-### Prerequisites
+Prerequisites:
 - Java 17+
 - Maven 3.6+
-- Chrome/Firefox/Edge browser
+- Chrome or Firefox installed
 
-### Run Tests
+Run VWO UI:
+
 ```bash
-# Clone repository
-git clone https://github.com/prasad291024/selenium-automation-framework.git
-cd selenium-automation-framework
-
-# Run all tests
-mvn clean test
-
-# Run specific suite
-mvn test -Dsurefire.suiteXmlFiles=testng_vwo_pom.xml
-
-# Run with environment
-mvn test -Denv=qa
-
-# Generate Allure report
-mvn allure:serve
+mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_vwo.xml
 ```
 
-### Docker Execution
+Run OrangeHRM UI:
+
 ```bash
-docker-compose up -d
-mvn test -Dsurefire.suiteXmlFiles=testng_docker_grid.xml
-docker-compose down
+mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_orangehrm.xml
 ```
 
----
+Run VWO BDD:
 
-## 📸 Screenshots
-
-### 🖥️ Dashboard Example:
-
-<img width="1024" alt="Screenshot 2023-10-31 at 12 27 14 PM" src="https://github.com/PramodDutta/AdvanceSeleniumFrameworkTTA/assets/1409610/02b0ef3b-1165-46cf-8c9d-89e41b17032f">
-
-### 📈 Allure Report Snapshot:
-
-<img width="1215" alt="Screenshot 2023-10-31 at 12 27 28 PM" src="https://github.com/PramodDutta/AdvanceSeleniumFrameworkTTA/assets/1409610/b0905741-d88d-4559-93c2-65433e668170">
-
----
-
-## 📚 Documentation
-
-- [Quick Start Guide](Personal_Docs/QUICK_START.md)
-- [Implementation Plan](Personal_Docs/IMPLEMENTATION_PLAN.md)
-- [CI/CD Setup](Personal_Docs/CICD_SETUP_GUIDE.md)
-- [Docker Setup](Personal_Docs/DOCKER_SETUP_GUIDE.md)
-- [API & DB Testing](Personal_Docs/API_DB_TESTING_GUIDE.md)
-- [Allure Reporting](Personal_Docs/ALLURE_REPORTING_GUIDE.md)
-- [Final Validation](Personal_Docs/FINAL_VALIDATION_GUIDE.md)
-
----
-
-## 🎯 Framework Architecture
-
-```
-src/
-├── main/java/com/prasad_v/
-│   ├── driver/          # DriverManager, DriverManagerTL, DriverManagerCloud
-│   ├── pages/           # Page Object Models
-│   ├── utils/           # LoggerUtil, ScreenshotUtil, ConfigManager, APIUtil, DatabaseUtil
-│   └── base/            # CommonToAllTest
-├── test/java/com/prasad_v/tests/
-│   ├── examples/        # Sample tests (API, DB, Allure)
-│   └── ...              # Test classes
-└── test/resources/
-    └── config/          # qa.properties, prod.properties
+```bash
+mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_vwo_bdd.xml
 ```
 
----
+Run OrangeHRM BDD:
 
-## 🏆 Achievements
+```bash
+mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_orangehrm_bdd.xml
+```
 
-✅ **10 Phases Complete** (100% Implementation)  
-✅ **58% Performance Improvement** (Parallel Execution)  
-✅ **70%+ Code Coverage** (JaCoCo)  
-✅ **Zero Critical Security Issues** (OWASP)  
-✅ **Production Ready** (All validations passed)  
+Run API suite (ReqRes key required):
 
----
+```bash
+mvn clean test -Dsurefire.suiteXmlFiles=testng_api_tests.xml -Dreqres.api.key=<your_key>
+```
 
-## 👤 Author
+## CI/CD (Multi-App)
 
-**Prasad**
+### GitHub Actions
 
----
+- `.github/workflows/pr-checks.yml`
+  - Build verification
+  - UI matrix tests for `vwo` and `orangehrm` (Chrome)
+  - Checkstyle, Sonar (optional), OWASP scan, Docker config validation
+- `.github/workflows/selenium-tests.yml`
+  - Push + nightly + manual runs
+  - Matrix across apps (`vwo`, `orangehrm`), suite types (`ui`, `bdd`), and browser
+  - Manual input supports single-app or all-app execution
+- `.github/workflows/release.yml`
+  - Tag-based release workflow
+  - Includes multi-app quick start examples
 
-## 📄 License
+### Jenkins
 
-MIT License - See LICENSE file for details
+- Parameterized pipeline supports browser, env, suite, and optional Docker Grid
+- For API suite, provide ReqRes key using either:
+  - `REQRES_API_KEY` environment variable, or
+  - `-Dreqres.api.key=...` via `MAVEN_OPTS` / `JAVA_TOOL_OPTIONS`
+
+## Reports
+
+- Surefire XML: `target/surefire-reports/`
+- Allure report: `target/site/allure-maven-plugin/`
+- JaCoCo report: `target/site/jacoco/`
+
+## Roadmap (Next)
+
+- Katalon test implementation
+- Unified retry strategy across apps
+- App-level data-driven datasets (Excel/POI)
