@@ -6,6 +6,11 @@ pipeline {
         choice(name: 'ENV', choices: ['qa', 'prod'], description: 'Target test environment')
         choice(name: 'SUITE', choices: [
                 'testng_vwo_pom.xml',
+                'testng_vwo.xml',
+                'testng_vwo_bdd.xml',
+                'testng_orangehrm.xml',
+                'testng_orangehrm_bdd.xml',
+                'testng_katalon.xml',
                 'testng_api_tests.xml',
                 'testng_docker_grid.xml',
                 'testng_final_validation.xml'
@@ -132,10 +137,20 @@ pipeline {
                     if (params.SUITE == 'testng_api_tests.xml' && !(hasReqresEnvKey || hasReqresJvmKey)) {
                         error('ReqRes API key is required for testng_api_tests.xml. Set REQRES_API_KEY or pass -Dreqres.api.key via MAVEN_OPTS/JAVA_TOOL_OPTIONS.')
                     }
+                    String appName = ''
+                    if (params.SUITE.startsWith('testng_vwo')) {
+                        appName = 'vwo'
+                    } else if (params.SUITE.startsWith('testng_orangehrm')) {
+                        appName = 'orangehrm'
+                    } else if (params.SUITE.startsWith('testng_katalon')) {
+                        appName = 'katalon'
+                    }
+                    String appArg = "-Dapp=${appName}"
 
                     if (isUnix()) {
                         sh """
                             ${MVN_CMD} clean test \
+                              ${appArg} \
                               -Denv=${params.ENV} \
                               -Dbrowser=${params.BROWSER} \
                               -Dgrid.url=${env.GRID_URL} \
@@ -144,6 +159,7 @@ pipeline {
                     } else {
                         bat """
                             %MVN_CMD% clean test ^
+                              ${appArg} ^
                               -Denv=${params.ENV} ^
                               -Dbrowser=${params.BROWSER} ^
                               -Dgrid.url=${env.GRID_URL} ^
