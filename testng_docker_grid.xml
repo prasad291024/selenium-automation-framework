@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Docker Grid Suite" parallel="tests" thread-count="3">
+    <listeners>
+        <listener class-name="com.prasad_v.listeners.RetryListener"/>
+    </listeners>
     
     <test name="Chrome on Grid">
         <parameter name="browser" value="chrome"/>
