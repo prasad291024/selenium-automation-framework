@@ -25,7 +25,7 @@ public class OrangeHRMLoginSteps {
     @Before
     public void setUp() {
         LoggerUtil.info("Initializing browser for OrangeHRM scenario");
-        DriverManagerTL.init("chrome");
+        DriverManagerTL.init();
         loginPage = new LoginPage(DriverManagerTL.getDriver());
         employeeListPage = new EmployeeListPage(DriverManagerTL.getDriver());
     }
@@ -38,8 +38,17 @@ public class OrangeHRMLoginSteps {
 
     @When("User logs in with username {string} and password {string}")
     public void userLogsInWithCredentials(String username, String password) {
-        capturedUsername = username;
-        capturedPassword = password;
+        capturedUsername = resolveCredentials(username);
+        capturedPassword = resolveCredentials(password);
+    }
+
+    private String resolveCredentials(String value) {
+        if (value != null && value.startsWith("${") && value.endsWith("}")) {
+            String envVarName = value.substring(2, value.length() - 1);
+            String envValue = System.getenv(envVarName);
+            return envValue != null ? envValue : value;
+        }
+        return value;
     }
 
     @Then("User should see the PIM menu header")

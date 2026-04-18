@@ -25,7 +25,7 @@ public class VWOLoginSteps {
     @Before
     public void setUp() {
         LoggerUtil.info("Initializing browser for scenario");
-        DriverManagerTL.init("chrome");
+        DriverManagerTL.init();
         loginPage = new LoginPage(DriverManagerTL.getDriver());
         dashBoardPage = new DashBoardPage(DriverManagerTL.getDriver());
     }
@@ -38,8 +38,18 @@ public class VWOLoginSteps {
 
     @When("User enters username as {string} and password as {string}")
     public void userEntersCredentials(String username, String password) {
-        capturedUsername = username;
-        capturedPassword = password;
+        // Resolve environment variable placeholders if present
+        capturedUsername = resolveCredentials(username);
+        capturedPassword = resolveCredentials(password);
+    }
+
+    private String resolveCredentials(String value) {
+        if (value != null && value.startsWith("${") && value.endsWith("}")) {
+            String envVarName = value.substring(2, value.length() - 1);
+            String envValue = System.getenv(envVarName);
+            return envValue != null ? envValue : value;
+        }
+        return value;
     }
 
     @Then("User should be redirected to Dashboard")

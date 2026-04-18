@@ -36,8 +36,25 @@ public class ConfigManager {
         }
     }
 
+    /**
+     * Retrieves the configuration value for the given key.
+     * Supports environment variable placeholders in the format "${ENV_VAR_NAME}".
+     * If the value is a placeholder, it will be resolved against system environment variables.
+     *
+     * @param key The configuration key
+     * @return The resolved configuration value, or null if not found
+     */
     public static String get(String key) {
-        return properties.getProperty(key);
+        String value = properties.getProperty(key);
+        if (value != null && value.startsWith("${") && value.endsWith("}")) {
+            String envVar = value.substring(2, value.length() - 1);
+            String envValue = System.getenv(envVar);
+            if (envValue != null) {
+                return envValue;
+            }
+            LoggerUtil.warn("Environment variable " + envVar + " is not set. Using original placeholder.");
+        }
+        return value;
     }
 
     public static String getEnvironment() {

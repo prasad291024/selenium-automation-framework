@@ -19,13 +19,16 @@ public class TestDatabaseExample {
 
     private DatabaseUtil db;
     
-    // Update these with your actual database credentials
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/testdb";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "password";
+    // Credentials should be fetched from environment variables or a secure ConfigManager
+    private static final String DB_URL = System.getenv("DB_URL") != null ? System.getenv("DB_URL") : "jdbc:mysql://localhost:3306/testdb";
+    private static final String DB_USER = System.getenv("DB_USERNAME") != null ? System.getenv("DB_USERNAME") : "root";
+    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
     @BeforeMethod
     public void setup() throws SQLException {
+        if (DB_PASSWORD == null) {
+            LoggerUtil.warn("DB_PASSWORD not set. Database tests may fail.");
+        }
         LoggerUtil.info("Connecting to database");
         db = new DatabaseUtil();
         db.connect(DB_URL, DB_USER, DB_PASSWORD);
