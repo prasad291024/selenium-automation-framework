@@ -64,6 +64,7 @@ jobs:
             -Dapp=${{ matrix.app }} \
             -Dbrowser=${{ matrix.browser }} \
             -Denv=qa \
+            -DretryCount=0 \
             -Dsurefire.suiteXmlFiles=${{ matrix.suite }}
 
       - name: Generate JaCoCo Report

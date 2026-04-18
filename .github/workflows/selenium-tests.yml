@@ -31,6 +31,12 @@ on:
         default: ui
         type: choice
         options: [ ui, bdd, both ]
+      retry_count:
+        description: Retries per failed test (0 = strict)
+        required: true
+        default: '1'
+        type: choice
+        options: [ '1', '0', '2', '3' ]
 
 jobs:
   test:
@@ -102,6 +108,7 @@ jobs:
             -Dapp=${{ matrix.app }} \
             -Dbrowser=${{ matrix.browser }} \
             -Denv=${{ github.event.inputs.environment || 'qa' }} \
+            -DretryCount=${{ github.event.inputs.retry_count || '1' }} \
             -Dsurefire.suiteXmlFiles=${{ matrix.suite }}
 
       - name: Generate Allure Report
