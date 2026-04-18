@@ -47,3 +47,14 @@ screenshots/
 logs/
 test-output/
 surefire-reports/
+
+
+CLAUDE.md
+CLAUDE.md/
+/CLAUDE.md/
+
+# Security: Ignore config files with actual credentials
+# We TRACK data.properties with placeholders, but IGNORE environment-specific prod/qa files
+src/main/resources/config/vwo/prod.properties
+src/main/resources/config/vwo/qa.properties
+src/main/resources/config/orangehrm/qa.properties

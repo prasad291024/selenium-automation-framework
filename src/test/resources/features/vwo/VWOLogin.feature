@@ -9,7 +9,7 @@ Feature: Login to VWO Application
 
   @ValidLogin @Smoke
   Scenario: Login with valid credentials
-    When User enters username as "93npu2yyb0@esiix.com" and password as "Wingify@123"
+    When User enters username as "${VWO_USERNAME}" and password as "${VWO_PASSWORD}"
     Then User should be redirected to Dashboard
 
   @InvalidLogin @Regression
