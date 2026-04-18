@@ -9,7 +9,6 @@ Feature: Login to OrangeHRM Application
 
   @ValidLogin @Smoke
   Scenario: Login with valid credentials
-    When User logs in with username "${OHR_USERNAME}" and password "${OHR_PASSWORD}"
     Then User should see the PIM menu header
 
   @InvalidLogin @Regression
