@@ -4,6 +4,7 @@ pipeline {
     parameters {
         choice(name: 'BROWSER', choices: ['chrome', 'firefox', 'edge'], description: 'Browser for non-grid local suites')
         choice(name: 'ENV', choices: ['qa', 'prod'], description: 'Target test environment')
+        choice(name: 'RETRY_COUNT', choices: ['1', '0', '2', '3'], description: 'Retries per failed test (0 = strict)')
         choice(name: 'SUITE', choices: [
                 'testng_vwo_pom.xml',
                 'testng_vwo.xml',
@@ -34,7 +35,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                echo "Suite=${params.SUITE}, Browser=${params.BROWSER}, Env=${params.ENV}, DockerGrid=${params.USE_DOCKER_GRID}"
+                echo "Suite=${params.SUITE}, Browser=${params.BROWSER}, Env=${params.ENV}, RetryCount=${params.RETRY_COUNT}, DockerGrid=${params.USE_DOCKER_GRID}"
             }
         }
 
@@ -153,6 +154,7 @@ pipeline {
                               ${appArg} \
                               -Denv=${params.ENV} \
                               -Dbrowser=${params.BROWSER} \
+                              -DretryCount=${params.RETRY_COUNT} \
                               -Dgrid.url=${env.GRID_URL} \
                               -Dsurefire.suiteXmlFiles=${params.SUITE}
                         """
@@ -162,6 +164,7 @@ pipeline {
                               ${appArg} ^
                               -Denv=${params.ENV} ^
                               -Dbrowser=${params.BROWSER} ^
+                              -DretryCount=${params.RETRY_COUNT} ^
                               -Dgrid.url=${env.GRID_URL} ^
                               -Dsurefire.suiteXmlFiles=${params.SUITE}
                         """
