@@ -71,6 +71,14 @@ jobs:
             browser: chrome
             suite: testng_orangehrm_bdd.xml
             suite_type: bdd
+          - app: vwo
+            browser: chrome
+            suite: testng_vwo_bdd.xml
+            suite_type: bdd
+          - app: orangehrm
+            browser: chrome
+            suite: testng_orangehrm_bdd.xml
+            suite_type: bdd
           - app: katalon
             browser: chrome
             suite: testng_katalon.xml
@@ -79,6 +87,10 @@ jobs:
             browser: firefox
             suite: testng_katalon.xml
             suite_type: ui
+          - app: katalon
+            browser: chrome
+            suite: testng_katalon_bdd.xml
+            suite_type: bdd
 
     steps:
       - uses: actions/checkout@v4

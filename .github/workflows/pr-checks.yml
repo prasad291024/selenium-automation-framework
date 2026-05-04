@@ -37,12 +37,21 @@ jobs:
           - app: vwo
             browser: chrome
             suite: testng_vwo.xml
+          - app: vwo
+            browser: chrome
+            suite: testng_vwo_bdd.xml
           - app: orangehrm
             browser: chrome
             suite: testng_orangehrm.xml
+          - app: orangehrm
+            browser: chrome
+            suite: testng_orangehrm_bdd.xml
           - app: katalon
             browser: chrome
             suite: testng_katalon.xml
+          - app: katalon
+            browser: chrome
+            suite: testng_katalon_bdd.xml
     steps:
       - uses: actions/checkout@v4
 
