@@ -8,7 +8,7 @@ Production-focused automation framework with Selenium 4, TestNG, Maven, and CI/C
 | --- | --- | --- |
 | `vwo` | Active | POM + TestNG + BDD + config |
 | `orangehrm` | Active | POM + TestNG + BDD + config |
-| `katalon` | Active | POM + TestNG + config |
+| `katalon` | Active | POM + TestNG + BDD + config |
 
 ## Tech Stack
 
@@ -29,11 +29,14 @@ Production-focused automation framework with Selenium 4, TestNG, Maven, and CI/C
 ```text
 src/
   main/
-    java/com/prasad_v/apps/
-      vwo/pages/
-      orangehrm/pages/
-      katalon/pages/
-    java/com/prasad_v/utils/
+    java/com/prasad_v/
+      base/                      # CommonToAllPage (app-agnostic)
+      driver/                    # DriverManagerTL, DriverManagerCloud
+      utils/                     # ConfigManager, LoggerUtil, APIUtil, etc.
+      apps/
+        vwo/pages/               # VWO Page Objects
+        orangehrm/pages/         # OrangeHRM Page Objects
+        katalon/pages/           # Katalon Page Objects
     resources/
       config/
         vwo/
@@ -44,28 +47,40 @@ src/
         katalon/
           qa.properties
   test/
-    java/com/prasad_v/apps/
-      vwo/tests/
-      vwo/runner/
-      vwo/definitions/
-      orangehrm/tests/
-      orangehrm/runner/
-      orangehrm/definitions/
-      katalon/tests/
+    java/com/prasad_v/
+      base/                      # CommonToAllTest
+      listeners/                 # RetryAnalyzer, ScreenshotListener
+      apps/
+        vwo/
+          tests/
+          runner/
+          definitions/
+        orangehrm/
+          tests/
+          runner/
+          definitions/
+        katalon/
+          tests/
+          runner/
+          definitions/
     resources/features/
       vwo/
       orangehrm/
+      katalon/
 ```
 
 ## TestNG Suites
 
-- `testng_vwo.xml` - VWO UI tests
-- `testng_vwo_bdd.xml` - VWO BDD runner
-- `testng_orangehrm.xml` - OrangeHRM UI tests
-- `testng_orangehrm_bdd.xml` - OrangeHRM BDD runner
-- `testng_katalon.xml` - Katalon UI tests
-- `testng_api_tests.xml` - API tests
-- `testng_docker_grid.xml` - Selenium Grid tests
+| Suite | Description |
+| --- | --- |
+| `testng_vwo.xml` | VWO UI tests |
+| `testng_vwo_bdd.xml` | VWO BDD runner |
+| `testng_orangehrm.xml` | OrangeHRM UI tests |
+| `testng_orangehrm_bdd.xml` | OrangeHRM BDD runner |
+| `testng_katalon.xml` | Katalon UI tests |
+| `testng_katalon_bdd.xml` | Katalon BDD runner |
+| `testng_api_tests.xml` | API tests |
+| `testng_docker_grid.xml` | Selenium Grid tests |
 
 ## Local Execution
 
@@ -74,45 +89,61 @@ Prerequisites:
 - Maven 3.6+
 - Chrome or Firefox installed
 
-Run VWO UI:
+### UI Tests
 
 ```bash
-mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -DretryCount=1 -Dsurefire.suiteXmlFiles=testng_vwo.xml
+# VWO
+mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_vwo.xml
+
+# OrangeHRM
+mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_orangehrm.xml
+
+# Katalon
+mvn clean test -Dapp=katalon -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_katalon.xml
 ```
 
-Run OrangeHRM UI:
+### BDD Tests
 
 ```bash
-mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -DretryCount=1 -Dsurefire.suiteXmlFiles=testng_orangehrm.xml
+# VWO BDD
+mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_vwo_bdd.xml
+
+# OrangeHRM BDD
+mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_orangehrm_bdd.xml
+
+# Katalon BDD
+mvn clean test -Dapp=katalon -Denv=qa -Dbrowser=chrome -Dsurefire.suiteXmlFiles=testng_katalon_bdd.xml
 ```
 
-Run VWO BDD:
+### Tag Filtering (BDD)
 
 ```bash
-mvn clean test -Dapp=vwo -Denv=qa -Dbrowser=chrome -DretryCount=1 -Dsurefire.suiteXmlFiles=testng_vwo_bdd.xml
+# Smoke only
+mvn clean test -Dapp=vwo -Denv=qa -Dsurefire.suiteXmlFiles=testng_vwo_bdd.xml -Dcucumber.filter.tags="@Smoke"
+
+# Regression only
+mvn clean test -Dapp=vwo -Denv=qa -Dsurefire.suiteXmlFiles=testng_vwo_bdd.xml -Dcucumber.filter.tags="@Regression"
 ```
 
-Run OrangeHRM BDD:
+### API Tests
 
 ```bash
-mvn clean test -Dapp=orangehrm -Denv=qa -Dbrowser=chrome -DretryCount=1 -Dsurefire.suiteXmlFiles=testng_orangehrm_bdd.xml
+mvn clean test -Dsurefire.suiteXmlFiles=testng_api_tests.xml
 ```
 
-Run API suite (ReqRes key required):
+### Docker Grid
 
 ```bash
-mvn clean test -DretryCount=1 -Dsurefire.suiteXmlFiles=testng_api_tests.xml -Dreqres.api.key=<your_key>
+docker-compose up -d
+mvn clean test -Dsurefire.suiteXmlFiles=testng_docker_grid.xml
+docker-compose down
 ```
 
-Run Katalon UI:
+### Allure Report
 
 ```bash
-mvn clean test -Dapp=katalon -Denv=qa -Dbrowser=chrome -DretryCount=1 -Dsurefire.suiteXmlFiles=testng_katalon.xml
+mvn allure:serve
 ```
-
-Retry behavior:
-- `-DretryCount=1` is the recommended default for unstable environments.
-- `-DretryCount=0` runs in strict mode with no retry.
 
 ## CI/CD (Multi-App)
 
@@ -120,31 +151,41 @@ Retry behavior:
 
 - `.github/workflows/pr-checks.yml`
   - Build verification
-  - UI matrix tests for `vwo`, `orangehrm`, and `katalon` (Chrome)
+  - UI + BDD matrix tests for all apps (Chrome)
   - Strict retry policy (`retryCount=0`)
   - Checkstyle, Sonar (optional), OWASP scan, Docker config validation
+  - Slack notification on pass/fail
 - `.github/workflows/selenium-tests.yml`
   - Push + nightly + manual runs
   - Matrix across apps (`vwo`, `orangehrm`, `katalon`), suite types (`ui`, `bdd`), and browser
   - Manual input supports single-app or all-app execution and configurable retry count
+  - Slack notification per run + nightly summary
 - `.github/workflows/release.yml`
-  - Tag-based release workflow
-  - Includes multi-app quick start examples
+  - Tag-based release workflow (`v*.*.*`)
+  - Auto-generates GitHub Release with quick start examples
+  - Slack notification on release
 
 ### Jenkins
 
-- Parameterized pipeline supports browser, env, suite, and optional Docker Grid
-- Retry is configurable by `RETRY_COUNT` parameter (`1` default, `0` strict)
-- For API suite, provide ReqRes key using either:
-  - `REQRES_API_KEY` environment variable, or
-  - `-Dreqres.api.key=...` via `MAVEN_OPTS` / `JAVA_TOOL_OPTIONS`
+- Parameterized pipeline (`Jenkinsfile`)
+- Parameters: browser, env, suite, retry count
+- Parallel stages: Checkstyle + OWASP security scan
+- Allure report generation
+- Docker Compose validation on master
+- Slack notifications: pass / fail / unstable
 
 ## Reports
 
-- Surefire XML: `target/surefire-reports/`
-- Allure report: `target/site/allure-maven-plugin/`
-- JaCoCo report: `target/site/jacoco/`
+| Report | Location |
+| --- | --- |
+| Surefire XML | `target/surefire-reports/` |
+| Allure | `target/site/allure-maven-plugin/` |
+| JaCoCo Coverage | `target/site/jacoco/` |
+| Cucumber HTML | `target/cucumber-reports/{app}/cucumber.html` |
+| Cucumber JSON | `target/cucumber-reports/{app}/cucumber.json` |
+| Security (OWASP) | `target/dependency-check-report.html` |
 
 ## Roadmap (Next)
 
+- Retry mechanism across all apps
 - App-level data-driven datasets (Excel/POI)
