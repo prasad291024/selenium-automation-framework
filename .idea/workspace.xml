@@ -12,6 +12,32 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CopilotChats">
+    <option name="panelChat">
+      <chat>
+        <option name="activeSessionId" value="1bfa41ee-9fd5-4f8d-b870-e6110d396689" />
+        <option name="sessions">
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="1fbc947e-aaa5-46e9-b42f-e9450d472c44" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="1bfa41ee-9fd5-4f8d-b870-e6110d396689" />
+            <option name="modeId" value="Agent" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+        </option>
+        <option name="type" value="PANEL" />
+      </chat>
+    </option>
+  </component>
   <component name="CopilotPersistence">
     <persistenceIdMap>
       <entry key="_C:/Users/Prasad/Projects/IdeaProjects/ATB10xSeleniumAdvanceFramework" value="2viwWCwmUZ2dxNmPWdsp3JfX5Xv" />
