@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Katalon Test Suite" parallel="methods" thread-count="2">
-    <test name="Katalon Login Tests">
+    <listeners>
+        <listener class-name="com.prasad_v.listeners.RetryListener"/>
+        <listener class-name="com.prasad_v.listeners.ScreenshotListener"/>
+    </listeners>
         <classes>
             <class name="com.prasad_v.apps.katalon.tests.KatalonLoginTest"/>
         </classes>
