@@ -132,6 +132,10 @@ jobs:
           APP_INVALID_USERNAME: ${{ secrets.APP_INVALID_USERNAME }}
           APP_INVALID_PASSWORD: ${{ secrets.APP_INVALID_PASSWORD }}
           APP_EXPECTED_USERNAME: ${{ secrets.APP_EXPECTED_USERNAME }}
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          LAMBDATEST_USERNAME: ${{ secrets.LAMBDATEST_USERNAME }}
+          LAMBDATEST_ACCESS_KEY: ${{ secrets.LAMBDATEST_ACCESS_KEY }}
         run: |
           mvn clean test \
             -Dapp=${{ matrix.app }} \
