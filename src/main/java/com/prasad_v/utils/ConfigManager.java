@@ -17,21 +17,22 @@ public class ConfigManager {
     private static void loadProperties() {
         properties = new Properties();
 
-        // Per-app config: src/main/resources/config/{app}/{env}.properties
-        // Generic config: src/main/resources/config/{env}.properties
-        String configPath = APP.isEmpty()
-                ? "src/main/resources/config/" + ENV + ".properties"
-                : "src/main/resources/config/" + APP + "/" + ENV + ".properties";
-
-        try (FileInputStream fis = new FileInputStream(configPath)) {
+        // Step 1: Always load data.properties as base (shared keys: grid, cloud, db)
+        try (FileInputStream fis = new FileInputStream("src/main/resources/data.properties")) {
             properties.load(fis);
-            LoggerUtil.info("Loaded config: " + configPath);
+            LoggerUtil.info("Loaded base config: data.properties");
         } catch (IOException e) {
-            LoggerUtil.warn("Config not found at: " + configPath + " - falling back to data.properties");
-            try (FileInputStream fis = new FileInputStream("src/main/resources/data.properties")) {
+            LoggerUtil.warn("data.properties not found - skipping base config");
+        }
+
+        // Step 2: Overlay app-specific config (overrides base keys where defined)
+        if (!APP.isEmpty()) {
+            String appConfigPath = "src/main/resources/config/" + APP + "/" + ENV + ".properties";
+            try (FileInputStream fis = new FileInputStream(appConfigPath)) {
                 properties.load(fis);
-            } catch (IOException ex) {
-                LoggerUtil.error("Failed to load any properties file", ex);
+                LoggerUtil.info("Loaded app config: " + appConfigPath);
+            } catch (IOException e) {
+                LoggerUtil.warn("App config not found at: " + appConfigPath + " - using base config only");
             }
         }
     }
