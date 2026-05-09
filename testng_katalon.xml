@@ -5,6 +5,7 @@
         <listener class-name="com.prasad_v.listeners.RetryListener"/>
         <listener class-name="com.prasad_v.listeners.ScreenshotListener"/>
     </listeners>
+    <test name="Katalon Login Tests">
         <classes>
             <class name="com.prasad_v.apps.katalon.tests.KatalonLoginTest"/>
         </classes>
