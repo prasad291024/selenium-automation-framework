@@ -3,6 +3,7 @@
 <suite name="VWO Test Suite" parallel="methods" thread-count="2">
     <listeners>
         <listener class-name="com.prasad_v.listeners.RetryListener"/>
+        <listener class-name="com.prasad_v.listeners.ScreenshotListener"/>
     </listeners>
     <test name="VWO Login Tests">
         <classes>
