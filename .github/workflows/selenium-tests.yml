@@ -115,6 +115,27 @@ jobs:
           firefox-version: latest
 
       - name: Run Tests
+        env:
+          VWO_USERNAME: ${{ secrets.VWO_USERNAME }}
+          VWO_PASSWORD: ${{ secrets.VWO_PASSWORD }}
+          VWO_INVALID_USERNAME: ${{ secrets.VWO_INVALID_USERNAME }}
+          VWO_INVALID_PASSWORD: ${{ secrets.VWO_INVALID_PASSWORD }}
+          VWO_EXPECTED_USERNAME: ${{ secrets.VWO_EXPECTED_USERNAME }}
+          OHR_USERNAME: ${{ secrets.OHR_USERNAME }}
+          OHR_PASSWORD: ${{ secrets.OHR_PASSWORD }}
+          KATALON_USERNAME: ${{ secrets.KATALON_USERNAME }}
+          KATALON_PASSWORD: ${{ secrets.KATALON_PASSWORD }}
+          KATALON_INVALID_USERNAME: ${{ secrets.KATALON_INVALID_USERNAME }}
+          KATALON_INVALID_PASSWORD: ${{ secrets.KATALON_INVALID_PASSWORD }}
+          APP_USERNAME: ${{ secrets.APP_USERNAME }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          APP_INVALID_USERNAME: ${{ secrets.APP_INVALID_USERNAME }}
+          APP_INVALID_PASSWORD: ${{ secrets.APP_INVALID_PASSWORD }}
+          APP_EXPECTED_USERNAME: ${{ secrets.APP_EXPECTED_USERNAME }}
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          LAMBDATEST_USERNAME: ${{ secrets.LAMBDATEST_USERNAME }}
+          LAMBDATEST_ACCESS_KEY: ${{ secrets.LAMBDATEST_ACCESS_KEY }}
         run: |
           mvn clean test \
             -Dapp=${{ matrix.app }} \

@@ -1,10 +1,8 @@
 package com.prasad_v.driver;
 
-import com.prasad_v.utils.PropertiesReader;
+import com.prasad_v.utils.ConfigManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -20,9 +18,8 @@ public class DriverManagerCloud {
     }
 
     public static void initBrowserStack() throws MalformedURLException {
-        String username = PropertiesReader.readKey("browserstack.username");
-        String accessKey = PropertiesReader.readKey("browserstack.accesskey");
-        String browser = PropertiesReader.readKey("browser").toLowerCase();
+        String username = ConfigManager.get("browserstack.username");
+        String accessKey = ConfigManager.get("browserstack.accesskey");
 
         HashMap<String, Object> bsOptions = new HashMap<>();
         bsOptions.put("os", "Windows");
@@ -39,9 +36,8 @@ public class DriverManagerCloud {
     }
 
     public static void initLambdaTest() throws MalformedURLException {
-        String username = PropertiesReader.readKey("lambdatest.username");
-        String accessKey = PropertiesReader.readKey("lambdatest.accesskey");
-        String browser = PropertiesReader.readKey("browser").toLowerCase();
+        String username = ConfigManager.get("lambdatest.username");
+        String accessKey = ConfigManager.get("lambdatest.accesskey");
 
         HashMap<String, Object> ltOptions = new HashMap<>();
         ltOptions.put("platformName", "Windows 11");
