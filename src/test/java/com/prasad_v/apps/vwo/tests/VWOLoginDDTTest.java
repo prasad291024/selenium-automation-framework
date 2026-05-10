@@ -52,12 +52,24 @@ public class VWOLoginDDTTest extends CommonToAllTest {
         LoggerUtil.info("DDT - Valid login test | user: " + username);
         LoginPage loginPage = new LoginPage(DriverManagerTL.getDriver());
 
-        loginPage.loginWithValidCreds(username, password);
+        String resolvedUsername = resolveCredentials(username);
+        String resolvedPassword = resolveCredentials(password);
+
+        loginPage.loginWithValidCreds(resolvedUsername, resolvedPassword);
 
         assertThat(DriverManagerTL.getDriver().getTitle())
                 .as("Page title should contain Dashboard after login")
                 .containsIgnoringCase("dashboard");
 
         Allure.addAttachment("Test Data", "User: " + username);
+    }
+
+    private String resolveCredentials(String value) {
+        if (value != null && value.startsWith("${") && value.endsWith("}")) {
+            String envVarName = value.substring(2, value.length() - 1);
+            String envValue = System.getenv(envVarName);
+            return envValue != null ? envValue : value;
+        }
+        return value;
     }
 }
