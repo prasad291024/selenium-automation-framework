@@ -8,6 +8,7 @@
     <test name="OrangeHRM Login Tests">
         <classes>
             <class name="com.prasad_v.apps.orangehrm.tests.OrangeHRMLoginTest"/>
+            <class name="com.prasad_v.apps.orangehrm.tests.OrangeHRMLoginDDTTest"/>
         </classes>
     </test>
 </suite>

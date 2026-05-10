@@ -8,6 +8,7 @@
     <test name="VWO Login Tests">
         <classes>
             <class name="com.prasad_v.apps.vwo.tests.VWOLoginTest"/>
+            <class name="com.prasad_v.apps.vwo.tests.VWOLoginDDTTest"/>
         </classes>
     </test>
 </suite>
