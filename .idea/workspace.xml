@@ -15,7 +15,7 @@
   <component name="CopilotChats">
     <option name="panelChat">
       <chat>
-        <option name="activeSessionId" value="1bfa41ee-9fd5-4f8d-b870-e6110d396689" />
+        <option name="activeSessionId" value="1fbc947e-aaa5-46e9-b42f-e9450d472c44" />
         <option name="sessions">
           <session>
             <option name="chatType" value="PANEL" />
@@ -88,17 +88,22 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "TestNG.C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/testng.xml.executor": "Run",
     "TestNG.C:/Users/prasa/IdeaProjects/ATB10xSeleniumAdvanceFramework/testng_vwo_pom.xml.executor": "Run",
     "TestNG.TestVWOLogin_01_NormalScript_POM.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/housekeeping",
+    "git-widget-placeholder": "feature/data-driven-tests",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Prasad/Projects/IdeaProjects/ATB10xSeleniumAdvanceFramework",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true"
   }
@@ -271,6 +276,9 @@
     </task>
     <option name="localTasksCounter" value="11" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Project Setup" />
