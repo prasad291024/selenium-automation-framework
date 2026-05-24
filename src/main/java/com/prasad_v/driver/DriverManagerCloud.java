@@ -18,8 +18,8 @@ public class DriverManagerCloud {
     }
 
     public static void initBrowserStack() throws MalformedURLException {
-        String username = ConfigManager.get("browserstack.username");
-        String accessKey = ConfigManager.get("browserstack.accesskey");
+        String username = ConfigManager.getRequired("browserstack.username");
+        String accessKey = ConfigManager.getRequired("browserstack.accesskey");
 
         HashMap<String, Object> bsOptions = new HashMap<>();
         bsOptions.put("os", "Windows");
@@ -36,8 +36,8 @@ public class DriverManagerCloud {
     }
 
     public static void initLambdaTest() throws MalformedURLException {
-        String username = ConfigManager.get("lambdatest.username");
-        String accessKey = ConfigManager.get("lambdatest.accesskey");
+        String username = ConfigManager.getRequired("lambdatest.username");
+        String accessKey = ConfigManager.getRequired("lambdatest.accesskey");
 
         HashMap<String, Object> ltOptions = new HashMap<>();
         ltOptions.put("platformName", "Windows 11");

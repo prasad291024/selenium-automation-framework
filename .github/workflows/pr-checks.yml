@@ -141,7 +141,6 @@ jobs:
 
       - name: Run Checkstyle
         run: mvn checkstyle:check
-        continue-on-error: true
 
       - name: SonarQube Scan
         if: ${{ secrets.SONAR_TOKEN != '' }}
@@ -154,7 +153,6 @@ jobs:
             -Dsonar.organization=prasad291024 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
-        continue-on-error: true
 
   security-scan:
     name: Security Scan
@@ -171,8 +169,9 @@ jobs:
           cache: 'maven'
 
       - name: OWASP Dependency Check
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: mvn dependency-check:check
-        continue-on-error: true
 
       - name: Upload Security Report
         if: always()

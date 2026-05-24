@@ -27,7 +27,7 @@ public class KatalonLoginSteps {
     @Before
     public void setUp() {
         LoggerUtil.info("Initializing browser for Katalon scenario");
-        DriverManagerTL.init("chrome");
+        DriverManagerTL.init();
         homePage = new HomePage(DriverManagerTL.getDriver());
         loginPage = new LoginPage(DriverManagerTL.getDriver());
         appointmentPage = new AppointmentPage(DriverManagerTL.getDriver());

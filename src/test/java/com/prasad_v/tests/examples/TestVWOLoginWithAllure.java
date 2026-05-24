@@ -35,7 +35,7 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
         String password = ConfigManager.get("password");
         
         Allure.step("Click login button");
-        loginPage.loginToVWOLoginValidCreds(username, password);
+        loginPage.loginWithValidCreds(username, password);
         DashBoardPage dashBoardPage = new DashBoardPage(driver);
         
         Allure.step("Verify user is logged in");
@@ -58,7 +58,7 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
         loginPage.openAppUrl();
         
         Allure.step("Enter invalid credentials");
-        String errorMsg = loginPage.loginToVWOLoginInvalidCreds("invalid@test.com", "wrongpass");
+        String errorMsg = loginPage.loginWithInvalidCreds("invalid@test.com", "wrongpass");
         
         Allure.step("Verify error message is displayed");
         assertThat(errorMsg).contains("Your email, password, IP address or location did not match");

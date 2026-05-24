@@ -2,7 +2,7 @@
 package com.prasad_v.driver;
 
 // Import custom utility to read values from config.properties file
-import com.prasad_v.utils.PropertiesReader;
+import com.prasad_v.utils.ConfigManager;
 
 // Selenium WebDriver base class
 import org.openqa.selenium.WebDriver;
@@ -66,7 +66,7 @@ public class DriverManager {
     // This method reads the browser type from properties file and launches the appropriate browser
     public static void init() {
         // Read the 'browser' key from properties file
-        String browser = PropertiesReader.readKey("browser");
+        String browser = ConfigManager.getRequired("browser");
 
         // Convert browser name to lowercase to make comparison case-insensitive
         browser = browser.toLowerCase();
