@@ -20,7 +20,7 @@ public class DashBoardPage extends CommonToAllPage {
         LoggerUtil.info("Fetching logged in username from dashboard");
         WaitHelpers.visibilityOfElement(loggedInUser);
         String username = getText(loggedInUser);
-        LoggerUtil.info("Logged in user: " + username);
+        LoggerUtil.info("Logged in user resolved: " + LoggerUtil.redacted());
         return username;
     }
 }

@@ -57,7 +57,7 @@ public class VWOLoginSteps {
         loginPage.loginWithValidCreds(capturedUsername, capturedPassword);
         String loggedInUser = dashBoardPage.loggedInUserName();
         assertThat(loggedInUser).as("Logged in user should not be empty").isNotNull().isNotEmpty();
-        LoggerUtil.info("Login verified. User: " + loggedInUser);
+        LoggerUtil.info("Login verified. User: " + LoggerUtil.redacted());
     }
 
     @Then("User should see error message {string}")

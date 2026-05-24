@@ -21,9 +21,9 @@ public class TestDataGenerator {
         // InvalidLogin sheet - columns: username, password, expectedError
         Sheet invalidSheet = workbook.createSheet("InvalidLogin");
         createRow(invalidSheet, 0, "username", "password", "expectedError");
-        createRow(invalidSheet, 1, "invalid@test.com", "wrongpass", "Your email, password, IP address or location did not match");
-        createRow(invalidSheet, 2, "admin@admin.com", "Test@2024", "Your email, password, IP address or location did not match");
-        createRow(invalidSheet, 3, "abc123@test.com", "xyz$$", "Your email, password, IP address or location did not match");
+        createRow(invalidSheet, 1, "invalid.user.1@example.test", "invalid-value-1", "Your email, password, IP address or location did not match");
+        createRow(invalidSheet, 2, "invalid.user.2@example.test", "invalid-value-2", "Your email, password, IP address or location did not match");
+        createRow(invalidSheet, 3, "invalid.user.3@example.test", "invalid-value-3", "Your email, password, IP address or location did not match");
 
         // ValidLogin sheet - columns: username, password
         Sheet validSheet = workbook.createSheet("ValidLogin");
@@ -39,9 +39,9 @@ public class TestDataGenerator {
         // InvalidLogin sheet - columns: username, password, expectedError
         Sheet invalidSheet = workbook.createSheet("InvalidLogin");
         createRow(invalidSheet, 0, "username", "password", "expectedError");
-        createRow(invalidSheet, 1, "wronguser", "wrongpass", "Invalid credentials");
-        createRow(invalidSheet, 2, "admin", "wrongpass", "Invalid credentials");
-        createRow(invalidSheet, 3, "testuser", "Test@123", "Invalid credentials");
+        createRow(invalidSheet, 1, "invalid-user-1", "invalid-value-1", "Invalid credentials");
+        createRow(invalidSheet, 2, "invalid-user-2", "invalid-value-2", "Invalid credentials");
+        createRow(invalidSheet, 3, "invalid-user-3", "invalid-value-3", "Invalid credentials");
 
         writeFile(workbook, "src/test/resources/testdata/OrangeHRMTestData.xlsx");
     }
@@ -52,9 +52,9 @@ public class TestDataGenerator {
         // InvalidLogin sheet - columns: username, password, expectedError
         Sheet invalidSheet = workbook.createSheet("InvalidLogin");
         createRow(invalidSheet, 0, "username", "password", "expectedError");
-        createRow(invalidSheet, 1, "invalid_user", "invalid_pass", "Login failed! Please ensure the username and password are valid.");
-        createRow(invalidSheet, 2, "wronguser", "wrongpass", "Login failed! Please ensure the username and password are valid.");
-        createRow(invalidSheet, 3, "testuser", "Test@123", "Login failed! Please ensure the username and password are valid.");
+        createRow(invalidSheet, 1, "invalid-user-1", "invalid-value-1", "Login failed! Please ensure the username and password are valid.");
+        createRow(invalidSheet, 2, "invalid-user-2", "invalid-value-2", "Login failed! Please ensure the username and password are valid.");
+        createRow(invalidSheet, 3, "invalid-user-3", "invalid-value-3", "Login failed! Please ensure the username and password are valid.");
 
         writeFile(workbook, "src/test/resources/testdata/KatalonTestData.xlsx");
     }

@@ -7,6 +7,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class DriverManagerCloud {
@@ -31,7 +33,7 @@ public class DriverManagerCloud {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("bstack:options", bsOptions);
 
-        String hubUrl = "https://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub";
+        String hubUrl = buildAuthenticatedUrl(username, accessKey, "hub-cloud.browserstack.com");
         driver.set(new RemoteWebDriver(new URL(hubUrl), options));
     }
 
@@ -51,8 +53,14 @@ public class DriverManagerCloud {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("LT:Options", ltOptions);
 
-        String hubUrl = "https://" + username + ":" + accessKey + "@hub.lambdatest.com/wd/hub";
+        String hubUrl = buildAuthenticatedUrl(username, accessKey, "hub.lambdatest.com");
         driver.set(new RemoteWebDriver(new URL(hubUrl), options));
+    }
+
+    private static String buildAuthenticatedUrl(String username, String accessKey, String host) {
+        String encodedUsername = URLEncoder.encode(username, StandardCharsets.UTF_8);
+        String encodedAccessKey = URLEncoder.encode(accessKey, StandardCharsets.UTF_8);
+        return "https://" + encodedUsername + ":" + encodedAccessKey + "@" + host + "/wd/hub";
     }
 
     public static void quit() {

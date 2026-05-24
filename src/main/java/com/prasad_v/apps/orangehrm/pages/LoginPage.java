@@ -22,7 +22,7 @@ public class LoginPage extends CommonToAllPage {
     private By errorMessage = By.xpath("//p[@class='oxd-text oxd-text--p oxd-alert-content-text']");
 
     public void loginWithCreds(String user, String pwd) {
-        LoggerUtil.info("OrangeHRM login - user: " + user.replaceAll("[\r\n]", "_"));
+        LoggerUtil.info("OrangeHRM login - user: " + LoggerUtil.redacted());
         openAppUrl();
         enterInput(username, user);
         enterInput(password, pwd);
@@ -31,7 +31,7 @@ public class LoginPage extends CommonToAllPage {
     }
 
     public String loginWithInvalidCreds(String user, String pwd) {
-        LoggerUtil.info("OrangeHRM invalid login - user: " + user.replaceAll("[\r\n]", "_"));
+        LoggerUtil.info("OrangeHRM invalid login - user: " + LoggerUtil.redacted());
         openAppUrl();
         enterInput(username, user);
         enterInput(password, pwd);

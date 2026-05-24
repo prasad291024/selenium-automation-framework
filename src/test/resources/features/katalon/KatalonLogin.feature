@@ -9,7 +9,7 @@ Feature: Login to Katalon Demo Application
 
   @ValidLogin @Smoke
   Scenario: Login with valid credentials reaches appointment page
-    When User logs in to Katalon with username "John Doe" and password "ThisIsNotAPassword"
+    When User logs in to Katalon with username "${KATALON_USERNAME}" and password "${KATALON_PASSWORD}"
     Then User should see the Make Appointment header
 
   @InvalidLogin @Regression
@@ -19,5 +19,5 @@ Feature: Login to Katalon Demo Application
 
     Examples:
       | username      | password       | errorMessage                                                          |
-      | invalid_user  | invalid_pass   | Login failed! Please ensure the username and password are valid.      |
-      | wronguser     | wrongpass      | Login failed! Please ensure the username and password are valid.      |
+      | invalid-user-1 | invalid-value-1 | Login failed! Please ensure the username and password are valid.     |
+      | invalid-user-2 | invalid-value-2 | Login failed! Please ensure the username and password are valid.     |
