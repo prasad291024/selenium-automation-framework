@@ -32,7 +32,7 @@ jobs:
   ui-matrix-tests:
     name: UI Tests - ${{ matrix.app }} (${{ matrix.browser }})
     runs-on: ubuntu-latest
-    needs: build-verification
+    needs: [ build-verification, security-scan, code-quality ]
     strategy:
       fail-fast: false
       matrix:
@@ -188,7 +188,7 @@ jobs:
   docker-build:
     name: Docker Build Verification
     runs-on: ubuntu-latest
-    needs: build-verification
+    needs: [ build-verification, security-scan, code-quality ]
     steps:
       - uses: actions/checkout@v4
 
