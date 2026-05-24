@@ -7,6 +7,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class DriverManagerCloud {
@@ -18,8 +20,8 @@ public class DriverManagerCloud {
     }
 
     public static void initBrowserStack() throws MalformedURLException {
-        String username = ConfigManager.get("browserstack.username");
-        String accessKey = ConfigManager.get("browserstack.accesskey");
+        String username = ConfigManager.getRequired("browserstack.username");
+        String accessKey = ConfigManager.getRequired("browserstack.accesskey");
 
         HashMap<String, Object> bsOptions = new HashMap<>();
         bsOptions.put("os", "Windows");
@@ -31,13 +33,13 @@ public class DriverManagerCloud {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("bstack:options", bsOptions);
 
-        String hubUrl = "https://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub";
+        String hubUrl = buildAuthenticatedUrl(username, accessKey, "hub-cloud.browserstack.com");
         driver.set(new RemoteWebDriver(new URL(hubUrl), options));
     }
 
     public static void initLambdaTest() throws MalformedURLException {
-        String username = ConfigManager.get("lambdatest.username");
-        String accessKey = ConfigManager.get("lambdatest.accesskey");
+        String username = ConfigManager.getRequired("lambdatest.username");
+        String accessKey = ConfigManager.getRequired("lambdatest.accesskey");
 
         HashMap<String, Object> ltOptions = new HashMap<>();
         ltOptions.put("platformName", "Windows 11");
@@ -51,8 +53,14 @@ public class DriverManagerCloud {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("LT:Options", ltOptions);
 
-        String hubUrl = "https://" + username + ":" + accessKey + "@hub.lambdatest.com/wd/hub";
+        String hubUrl = buildAuthenticatedUrl(username, accessKey, "hub.lambdatest.com");
         driver.set(new RemoteWebDriver(new URL(hubUrl), options));
+    }
+
+    private static String buildAuthenticatedUrl(String username, String accessKey, String host) {
+        String encodedUsername = URLEncoder.encode(username, StandardCharsets.UTF_8);
+        String encodedAccessKey = URLEncoder.encode(accessKey, StandardCharsets.UTF_8);
+        return "https://" + encodedUsername + ":" + encodedAccessKey + "@" + host + "/wd/hub";
     }
 
     public static void quit() {

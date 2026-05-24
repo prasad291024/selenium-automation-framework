@@ -5,6 +5,7 @@ import com.prasad_v.apps.vwo.pages.LoginPage;
 import com.prasad_v.base.CommonToAllTest;
 import com.prasad_v.driver.DriverManagerTL;
 import com.prasad_v.utils.ConfigManager;
+import com.prasad_v.utils.LoggerUtil;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
@@ -28,7 +29,7 @@ public class VWOLoginTest extends CommonToAllTest {
 
         String loggedInUser = dashBoardPage.loggedInUserName();
         assertThat(loggedInUser).isNotNull().isNotEmpty();
-        Allure.addAttachment("Logged In User", loggedInUser);
+        Allure.addAttachment("Logged In User", LoggerUtil.redacted());
     }
 
     @Test

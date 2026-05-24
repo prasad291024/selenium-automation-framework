@@ -32,16 +32,16 @@ public class VWOLoginDDTTest extends CommonToAllTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify error message for multiple invalid credential combinations from Excel")
     public void testInvalidLoginDDT(String username, String password, String expectedError) {
-        LoggerUtil.info("DDT - Invalid login test | user: " + username);
+        LoggerUtil.info("DDT - Invalid login test | user: " + LoggerUtil.redacted());
         LoginPage loginPage = new LoginPage(DriverManagerTL.getDriver());
 
         String actualError = loginPage.loginWithInvalidCreds(username, password);
 
         assertThat(actualError)
-                .as("Error message should match for user: " + username)
+                .as("Error message should match for supplied user")
                 .contains(expectedError);
 
-        Allure.addAttachment("Test Data", "User: " + username + " | Expected: " + expectedError);
+        Allure.addAttachment("Test Data", "User: " + LoggerUtil.redacted() + " | Expected: " + expectedError);
     }
 
     @Test(dataProvider = "validLoginData")
@@ -49,7 +49,7 @@ public class VWOLoginDDTTest extends CommonToAllTest {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify successful login for valid credentials from Excel")
     public void testValidLoginDDT(String username, String password) {
-        LoggerUtil.info("DDT - Valid login test | user: " + username);
+        LoggerUtil.info("DDT - Valid login test | user: " + LoggerUtil.redacted());
         LoginPage loginPage = new LoginPage(DriverManagerTL.getDriver());
 
         String resolvedUsername = resolveCredentials(username);
@@ -61,7 +61,7 @@ public class VWOLoginDDTTest extends CommonToAllTest {
                 .as("Page title should contain Dashboard after login")
                 .containsIgnoringCase("dashboard");
 
-        Allure.addAttachment("Test Data", "User: " + username);
+        Allure.addAttachment("Test Data", "User: " + LoggerUtil.redacted());
     }
 
     private String resolveCredentials(String value) {

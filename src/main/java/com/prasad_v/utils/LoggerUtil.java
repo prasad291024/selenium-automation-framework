@@ -26,4 +26,8 @@ public class LoggerUtil {
     public static void warn(String message) {
         logger.warn(message);
     }
+
+    public static String redacted() {
+        return "<redacted>";
+    }
 }

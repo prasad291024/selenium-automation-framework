@@ -22,14 +22,14 @@ public class LoginPage extends CommonToAllPage {
     private final By errorMessage = By.cssSelector("p.lead.text-danger");
 
     public void loginWithCreds(String user, String pwd) {
-        LoggerUtil.info("Katalon login - user: " + user.replaceAll("[\r\n]", "_"));
+        LoggerUtil.info("Katalon login - user: " + LoggerUtil.redacted());
         enterInput(username, user);
         enterInput(password, pwd);
         clickElement(loginBtn);
     }
 
     public String loginWithInvalidCreds(String user, String pwd) {
-        LoggerUtil.info("Katalon invalid login - user: " + user.replaceAll("[\r\n]", "_"));
+        LoggerUtil.info("Katalon invalid login - user: " + LoggerUtil.redacted());
         enterInput(username, user);
         enterInput(password, pwd);
         clickElement(loginBtn);

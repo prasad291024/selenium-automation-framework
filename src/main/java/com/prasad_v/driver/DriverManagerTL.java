@@ -1,6 +1,6 @@
 package com.prasad_v.driver;
 
-import com.prasad_v.utils.PropertiesReader;
+import com.prasad_v.utils.ConfigManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -29,7 +29,7 @@ public class DriverManagerTL {
     }
 
     public static void init() {
-        String browser = PropertiesReader.readKey("browser").toLowerCase();
+        String browser = ConfigManager.getRequired("browser").toLowerCase();
         boolean ci = isCI();
 
         if (ci) {

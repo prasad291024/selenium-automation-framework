@@ -9,7 +9,7 @@ Feature: Login to VWO Application
 
   @ValidLogin @Smoke
   Scenario: Login with valid credentials
-    When User enters username as "93npu2yyb0@esiix.com" and password as "Wingify@123"
+    When User enters username as "${VWO_USERNAME}" and password as "${VWO_PASSWORD}"
     Then User should be redirected to Dashboard
 
   @InvalidLogin @Regression
@@ -19,6 +19,6 @@ Feature: Login to VWO Application
 
     Examples:
       | username             | password  | errorMessage                                               |
-      | 93npu2yyb0@esiix.co  | admin12$$ | Your email, password, IP address or location did not match |
-      | admin                | admin     | Your email, password, IP address or location did not match |
-      | abc123               | xyz$$     | Your email, password, IP address or location did not match |
+      | invalid.user.1@example.test | invalid-value-1 | Your email, password, IP address or location did not match |
+      | invalid.user.2@example.test | invalid-value-2 | Your email, password, IP address or location did not match |
+      | invalid.user.3@example.test | invalid-value-3 | Your email, password, IP address or location did not match |

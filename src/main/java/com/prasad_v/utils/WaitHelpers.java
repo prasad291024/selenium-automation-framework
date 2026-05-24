@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-import static com.prasad_v.driver.DriverManager.getDriver;
+import static com.prasad_v.driver.DriverManagerTL.getDriver;
 
 
 public class WaitHelpers {

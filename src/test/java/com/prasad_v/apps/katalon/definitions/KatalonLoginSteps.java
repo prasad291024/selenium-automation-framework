@@ -27,7 +27,7 @@ public class KatalonLoginSteps {
     @Before
     public void setUp() {
         LoggerUtil.info("Initializing browser for Katalon scenario");
-        DriverManagerTL.init("chrome");
+        DriverManagerTL.init();
         homePage = new HomePage(DriverManagerTL.getDriver());
         loginPage = new LoginPage(DriverManagerTL.getDriver());
         appointmentPage = new AppointmentPage(DriverManagerTL.getDriver());
@@ -41,8 +41,17 @@ public class KatalonLoginSteps {
 
     @When("User logs in to Katalon with username {string} and password {string}")
     public void userLogsInToKatalon(String username, String password) {
-        capturedUsername = username;
-        capturedPassword = password;
+        capturedUsername = resolveCredentials(username);
+        capturedPassword = resolveCredentials(password);
+    }
+
+    private String resolveCredentials(String value) {
+        if (value != null && value.startsWith("${") && value.endsWith("}")) {
+            String envVarName = value.substring(2, value.length() - 1);
+            String envValue = System.getenv(envVarName);
+            return envValue != null ? envValue : value;
+        }
+        return value;
     }
 
     @Then("User should see the Make Appointment header")

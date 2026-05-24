@@ -18,5 +18,5 @@ Feature: Login to OrangeHRM Application
 
     Examples:
       | username     | password     | errorMessage              |
-      | wronguser    | wrongpass    | Invalid credentials       |
-      | admin        | wrongpass    | Invalid credentials       |
+      | invalid-user-1 | invalid-value-1 | Invalid credentials       |
+      | invalid-user-2 | invalid-value-2 | Invalid credentials       |

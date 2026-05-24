@@ -8,6 +8,7 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/workspace.xml
 *.iws
 *.iml
 *.ipr
@@ -39,6 +40,7 @@ build/
 
 ## Personal files and folders ##
 Personal_Docs/
+CLAUDE.md
 
 ## Test Reports & Results ##
 allure-results/
@@ -49,12 +51,7 @@ test-output/
 surefire-reports/
 
 
-CLAUDE.md
-CLAUDE.md/
-/CLAUDE.md/
-
-# Security: Ignore config files with actual credentials
-# We TRACK data.properties with placeholders, but IGNORE environment-specific prod/qa files
-src/main/resources/config/vwo/prod.properties
-src/main/resources/config/vwo/qa.properties
-src/main/resources/config/orangehrm/qa.properties
+# Security: keep committed config files placeholder-based.
+# Put local secrets in .env or *.local.properties files only.
+.env
+*.local.properties
