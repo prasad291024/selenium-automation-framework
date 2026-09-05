@@ -26,23 +26,23 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
     public void testValidLogin() {
         WebDriver driver = DriverManagerTL.getDriver();
         LoginPage loginPage = new LoginPage(driver);
-        
+
         Allure.step("Navigate to login page");
         loginPage.openAppUrl();
-        
+
         Allure.step("Enter valid credentials");
         String username = ConfigManager.get("username");
         String password = ConfigManager.get("password");
-        
+
         Allure.step("Click login button");
         loginPage.loginWithValidCreds(username, password);
         DashBoardPage dashBoardPage = new DashBoardPage(driver);
-        
+
         Allure.step("Verify user is logged in");
         String loggedInUser = dashBoardPage.loggedInUserName();
         assertThat(loggedInUser).isNotNull().isNotEmpty();
-        
-        Allure.addAttachment("Logged In User", com.prasad_v.utils.LoggerUtil.redacted());
+
+        Allure.addAttachment("Logged In User", loggedInUser);
     }
 
     @Test(priority = 2)
@@ -53,18 +53,18 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
     public void testInvalidLogin() {
         WebDriver driver = DriverManagerTL.getDriver();
         LoginPage loginPage = new LoginPage(driver);
-        
+
         Allure.step("Navigate to login page");
         loginPage.openAppUrl();
-        
+
         Allure.step("Enter invalid credentials");
         String errorMsg = loginPage.loginWithInvalidCreds(
                 ConfigManager.get("invalid_username"),
                 ConfigManager.get("invalid_password"));
-        
+
         Allure.step("Verify error message is displayed");
         assertThat(errorMsg).contains("Your email, password, IP address or location did not match");
-        
+
         Allure.addAttachment("Error Message", errorMsg);
     }
 }

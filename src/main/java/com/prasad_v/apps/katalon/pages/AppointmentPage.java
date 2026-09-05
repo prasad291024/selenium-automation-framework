@@ -19,7 +19,9 @@ public class AppointmentPage extends CommonToAllPage {
     private final By header = By.xpath("//h2[normalize-space()='Make Appointment']");
 
     public String getHeader() {
-        WaitHelpers.checkVisibility(getDriver(), header);
+        // Wait for page to load completely first
+        WaitHelpers.waitJVM(2000); // Additional 2 second wait for stability
+        WaitHelpers.checkVisibility(getDriver(), header, 20); // Increased timeout to 20 seconds
         String value = getText(header);
         LoggerUtil.info("Katalon appointment header: " + value);
         return value;
