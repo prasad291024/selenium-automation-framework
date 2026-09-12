@@ -4,11 +4,11 @@ Production-focused automation framework with Selenium 4, TestNG, Maven, and CI/C
 
 ## Current App Status
 
-| App | Status | Coverage |
-| --- | --- | --- |
-| `vwo` | Active | POM + TestNG + BDD + config |
+| App         | Status | Coverage                    |
+| ----------- | ------ | --------------------------- |
+| `vwo`       | Active | POM + TestNG + BDD + config |
 | `orangehrm` | Active | POM + TestNG + BDD + config |
-| `katalon` | Active | POM + TestNG + BDD + config |
+| `katalon`   | Active | POM + TestNG + BDD + config |
 
 ## Tech Stack
 
@@ -71,20 +71,21 @@ src/
 
 ## TestNG Suites
 
-| Suite | Description |
-| --- | --- |
-| `testng_vwo.xml` | VWO UI tests |
-| `testng_vwo_bdd.xml` | VWO BDD runner |
-| `testng_orangehrm.xml` | OrangeHRM UI tests |
+| Suite                      | Description          |
+| -------------------------- | -------------------- |
+| `testng_vwo.xml`           | VWO UI tests         |
+| `testng_vwo_bdd.xml`       | VWO BDD runner       |
+| `testng_orangehrm.xml`     | OrangeHRM UI tests   |
 | `testng_orangehrm_bdd.xml` | OrangeHRM BDD runner |
-| `testng_katalon.xml` | Katalon UI tests |
-| `testng_katalon_bdd.xml` | Katalon BDD runner |
-| `testng_api_tests.xml` | API tests |
-| `testng_docker_grid.xml` | Selenium Grid tests |
+| `testng_katalon.xml`       | Katalon UI tests     |
+| `testng_katalon_bdd.xml`   | Katalon BDD runner   |
+| `testng_api_tests.xml`     | API tests            |
+| `testng_docker_grid.xml`   | Selenium Grid tests  |
 
 ## Local Execution
 
 Prerequisites:
+
 - Java 17+
 - Maven 3.6+
 - Chrome or Firefox installed
@@ -176,14 +177,14 @@ mvn allure:serve
 
 ## Reports
 
-| Report | Location |
-| --- | --- |
-| Surefire XML | `target/surefire-reports/` |
-| Allure | `target/site/allure-maven-plugin/` |
-| JaCoCo Coverage | `target/site/jacoco/` |
-| Cucumber HTML | `target/cucumber-reports/{app}/cucumber.html` |
-| Cucumber JSON | `target/cucumber-reports/{app}/cucumber.json` |
-| Security (OWASP) | `target/dependency-check-report.html` |
+| Report           | Location                                      |
+| ---------------- | --------------------------------------------- |
+| Surefire XML     | `target/surefire-reports/`                    |
+| Allure           | `target/site/allure-maven-plugin/`            |
+| JaCoCo Coverage  | `target/site/jacoco/`                         |
+| Cucumber HTML    | `target/cucumber-reports/{app}/cucumber.html` |
+| Cucumber JSON    | `target/cucumber-reports/{app}/cucumber.json` |
+| Security (OWASP) | `target/dependency-check-report.html`         |
 
 ## Roadmap (Next)
 

@@ -1,8 +1,9 @@
 ## 📋 Description
+
 <!-- Provide a brief description of the changes -->
 
-
 ## 🎯 Type of Change
+
 <!-- Mark the relevant option with an 'x' -->
 
 - [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
@@ -16,14 +17,17 @@
 - [ ] 🔧 Configuration change
 
 ## 🔗 Related Issue
+
 <!-- Link to the issue this PR addresses -->
+
 Closes #(issue number)
 
 ## 📸 Screenshots (if applicable)
+
 <!-- Add screenshots to help explain your changes -->
 
-
 ## ✅ Checklist
+
 <!-- Mark completed items with an 'x' -->
 
 - [ ] My code follows the project's style guidelines
@@ -36,6 +40,7 @@ Closes #(issue number)
 - [ ] Any dependent changes have been merged and published
 
 ## 🧪 Test Coverage
+
 <!-- Describe the tests you've added/modified -->
 
 - [ ] Unit tests added/updated
@@ -43,15 +48,17 @@ Closes #(issue number)
 - [ ] Manual testing completed
 
 ## 📝 Additional Notes
+
 <!-- Any additional information for reviewers -->
 
-
 ## 🔍 Reviewer Notes
+
 <!-- Specific areas you want reviewers to focus on -->
 
-
 ---
+
 **By submitting this PR, I confirm that:**
+
 - [ ] I have tested these changes locally
 - [ ] All automated checks are passing
 - [ ] This PR is ready for review

@@ -2,8 +2,8 @@ name: PR Checks
 
 on:
   pull_request:
-    branches: [ master, develop ]
-    types: [ opened, synchronize, reopened ]
+    branches: [master, develop]
+    types: [opened, synchronize, reopened]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -22,9 +22,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'maven'
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
 
       - name: Build
         run: mvn clean compile -q
@@ -32,7 +32,7 @@ jobs:
   ui-matrix-tests:
     name: UI Tests - ${{ matrix.app }} (${{ matrix.browser }})
     runs-on: ubuntu-latest
-    needs: [ build-verification, security-scan, code-quality ]
+    needs: [build-verification, security-scan, code-quality]
     strategy:
       fail-fast: false
       matrix:
@@ -61,9 +61,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'maven'
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
 
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1
@@ -140,9 +140,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'maven'
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
 
       - name: Run Checkstyle
         run: mvn checkstyle:check
@@ -168,9 +168,9 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'maven'
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
 
       - name: OWASP Dependency Check
         env:
@@ -189,7 +189,7 @@ jobs:
   docker-build:
     name: Docker Build Verification
     runs-on: ubuntu-latest
-    needs: [ build-verification, security-scan, code-quality ]
+    needs: [build-verification, security-scan, code-quality]
     steps:
       - uses: actions/checkout@v4
 
@@ -203,7 +203,7 @@ jobs:
   notify-success:
     name: Notify Success
     runs-on: ubuntu-latest
-    needs: [ ui-matrix-tests, code-quality, security-scan, docker-build ]
+    needs: [ui-matrix-tests, code-quality, security-scan, docker-build]
     if: success()
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

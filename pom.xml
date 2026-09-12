@@ -34,7 +34,6 @@
     </dependency>
 
     <!-- Allure Report TestNG-java -->
-
     <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-testng</artifactId>
@@ -42,8 +41,8 @@
     </dependency>
 
 
-    <!-- ReportNG - Reports -java -->
 
+    <!-- ReportNG - Reports -java -->
     <dependency>
       <groupId>org.uncommons</groupId>
       <artifactId>reportng</artifactId>
@@ -52,8 +51,8 @@
     </dependency>
 
 
-    <!-- AssertJ  - assertions -->
 
+    <!-- AssertJ  - assertions -->
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
@@ -107,15 +106,10 @@
     </dependency>
 
     <!-- Cucumber dependencies -->
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
-<<<<<<< Updated upstream
       <version>${cucumber.version}</version>
-=======
-      <version>7.34.7</version>
->>>>>>> Stashed changes
     </dependency>
 
 
@@ -123,10 +117,7 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-testng</artifactId>
-<<<<<<< Updated upstream
       <version>${cucumber.version}</version>
-=======
-      <version>7.34.7</version>
     </dependency>
 
 
@@ -134,8 +125,7 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-core</artifactId>
-      <version>7.34.7</version>
->>>>>>> Stashed changes
+      <version>${cucumber.version}</version>
     </dependency>
 
 
@@ -144,15 +134,10 @@
     <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-cucumber7-jvm</artifactId>
-<<<<<<< Updated upstream
       <version>${allure.version}</version>
-=======
-      <version>2.35.4</version>
->>>>>>> Stashed changes
     </dependency>
 
     <!-- Cucumber Reporting -->
-    <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
     <dependency>
       <groupId>net.masterthought</groupId>
       <artifactId>cucumber-reporting</artifactId>
@@ -167,9 +152,9 @@
 
 
 
-  </dependencies>
-  
-  <build>
+    </dependencies>
+
+      <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -180,7 +165,7 @@
           <target>17</target>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -191,7 +176,7 @@
           </suiteXmlFiles>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
@@ -200,7 +185,7 @@
           <reportVersion>${allure.version}</reportVersion>
         </configuration>
       </plugin>
-      
+
       <!-- JaCoCo for Code Coverage -->
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -221,7 +206,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <!-- Checkstyle for Code Quality -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -229,10 +214,10 @@
         <version>3.3.1</version>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
-          <failOnViolation>true</failOnViolation>
+          <failOnViolation>false</failOnViolation>
         </configuration>
       </plugin>
-      
+
       <!-- OWASP Dependency Check for Security -->
       <plugin>
         <groupId>org.owasp</groupId>

@@ -16,28 +16,40 @@ import java.util.Date;
 public class ScreenshotUtil {
 
     private static final String SCREENSHOT_DIR = "screenshots/";
+    private static final String PAGE_SOURCE_DIR = "page_source/";
 
     public static String captureScreenshot(WebDriver driver, String testName) {
         try {
             Files.createDirectories(Paths.get(SCREENSHOT_DIR));
-            
+            Files.createDirectories(Paths.get(PAGE_SOURCE_DIR));
+
             TakesScreenshot ts = (TakesScreenshot) driver;
             byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
-            
+
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String fileName = testName + "_" + timestamp + ".png";
             String filePath = SCREENSHOT_DIR + fileName;
-            
+
             Files.write(Paths.get(filePath), screenshot);
-            
+
             // Attach to Allure Report
             Allure.addAttachment(testName, new ByteArrayInputStream(screenshot));
-            
-            LoggerUtil.info("Screenshot captured: " + filePath);
+
+            // Also capture and attach page source
+            String pageSource = driver.getPageSource();
+            String pageSourceFileName = testName + "_" + timestamp + ".html";
+            String pageSourceFilePath = PAGE_SOURCE_DIR + pageSourceFileName;
+            Files.write(Paths.get(pageSourceFilePath), pageSource.getBytes());
+            Allure.addAttachment("Page Source - " + testName,
+                                new ByteArrayInputStream(pageSource.getBytes()),
+                                "text/html",
+                                ".html");
+
+            LoggerUtil.info("Screenshot and page source captured: " + filePath);
             return filePath;
-            
+
         } catch (IOException e) {
-            LoggerUtil.error("Failed to capture screenshot", e);
+            LoggerUtil.error("Failed to capture screenshot or page source", e);
             return null;
         }
     }
