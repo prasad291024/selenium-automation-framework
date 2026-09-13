@@ -29,7 +29,7 @@ public class VWOLoginTest extends CommonToAllTest {
 
         String loggedInUser = dashBoardPage.loggedInUserName();
         assertThat(loggedInUser).isNotNull().isNotEmpty();
-        Allure.addAttachment("Logged In User", LoggerUtil.redacted());
+        Allure.addAttachment("Logged In User", "text/plain", LoggerUtil.redacted());
     }
 
     @Test
@@ -44,6 +44,6 @@ public class VWOLoginTest extends CommonToAllTest {
                 ConfigManager.get("invalid_password"));
 
         assertThat(errorMsg).contains(ConfigManager.get("error_message"));
-        Allure.addAttachment("Error Message", errorMsg);
+        Allure.addAttachment("Error Message", "text/plain", errorMsg);
     }
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -33,17 +34,14 @@ public class ScreenshotUtil {
             Files.write(Paths.get(filePath), screenshot);
 
             // Attach to Allure Report
-            Allure.addAttachment(testName, new ByteArrayInputStream(screenshot));
+            Allure.addAttachment(testName, "image/png", new ByteArrayInputStream(screenshot), "png");
 
             // Also capture and attach page source
             String pageSource = driver.getPageSource();
             String pageSourceFileName = testName + "_" + timestamp + ".html";
             String pageSourceFilePath = PAGE_SOURCE_DIR + pageSourceFileName;
             Files.write(Paths.get(pageSourceFilePath), pageSource.getBytes());
-            Allure.addAttachment("Page Source - " + testName,
-                                new ByteArrayInputStream(pageSource.getBytes()),
-                                "text/html",
-                                ".html");
+            Allure.addAttachment("Page Source - " + testName, "text/html", new ByteArrayInputStream(pageSource.getBytes(StandardCharsets.UTF_8)), "html");
 
             LoggerUtil.info("Screenshot and page source captured: " + filePath);
             return filePath;

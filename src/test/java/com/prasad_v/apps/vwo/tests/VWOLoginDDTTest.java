@@ -41,7 +41,7 @@ public class VWOLoginDDTTest extends CommonToAllTest {
                 .as("Error message should match for supplied user")
                 .contains(expectedError);
 
-        Allure.addAttachment("Test Data", "User: " + LoggerUtil.redacted() + " | Expected: " + expectedError);
+        Allure.addAttachment("Test Data", "text/plain", "User: " + LoggerUtil.redacted() + " | Expected: " + expectedError);
     }
 
     @Test(dataProvider = "validLoginData")
