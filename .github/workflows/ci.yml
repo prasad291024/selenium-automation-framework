@@ -47,14 +47,14 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.app }}-java${{ matrix.java-version }}
           path: target/surefire-reports/
 
       - name: Upload Allure report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report-${{ matrix.app }}-java${{ matrix.java-version }}
           path: target/site/allure-maven-plugin/
@@ -92,7 +92,7 @@ jobs:
 
       - name: Upload Docker Grid Test Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-grid-test-results
           path: target/surefire-reports/
@@ -120,14 +120,14 @@ jobs:
 
       - name: Upload Checkstyle Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: checkstyle-results
           path: target/checkstyle-result.xml
 
       - name: Upload OWASP Dependency Check Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dependency-check-report
           path: target/dependency-check-report.xml
