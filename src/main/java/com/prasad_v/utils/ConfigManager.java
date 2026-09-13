@@ -57,6 +57,19 @@ public class ConfigManager {
         }
     }
 
+    // Default values for common test credentials (used when environment variables are not set)
+    private static final Map<String, String> DEFAULT_CREDENTIAL_VALUES = new HashMap<>();
+
+    static {
+        // Initialize default credential values
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_USERNAME", "Admin");
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_PASSWORD", "admin");
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_INVALID_USERNAME", "InvalidUser");
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_INVALID_PASSWORD", "InvalidPass");
+        DEFAULT_CREDENTIAL_VALUES.put("OHR_USERNAME", "Admin");
+        DEFAULT_CREDENTIAL_VALUES.put("OHR_PASSWORD", "admin123");
+    }
+
     private static void validateRequiredEnvironmentVariables() {
         // Define required environment variables for each app needs
         Map<String, List<String>> requiredEnvVars = new HashMap<>();
@@ -112,6 +125,12 @@ public class ConfigManager {
             String envValue = System.getenv(envVar);
             if (envValue != null && !envValue.isBlank()) {
                 return envValue;
+            }
+            // Check for default value
+            String defaultValue = DEFAULT_CREDENTIAL_VALUES.get(envVar);
+            if (defaultValue != null) {
+                LoggerUtil.info("Environment variable " + envVar + " is not set. Using default value: " + defaultValue);
+                return defaultValue;
             }
             LoggerUtil.warn("Environment variable " + envVar + " is not set.");
             return "";
