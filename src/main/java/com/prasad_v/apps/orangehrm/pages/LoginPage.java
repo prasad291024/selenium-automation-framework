@@ -24,6 +24,7 @@ public class LoginPage extends CommonToAllPage {
     public void loginWithCreds(String user, String pwd) {
         LoggerUtil.info("OrangeHRM login - user: " + LoggerUtil.redacted());
         openAppUrl();
+        WaitHelpers.checkVisibility(getDriver(), username);
         enterInput(username, user);
         enterInput(password, pwd);
         clickElement(submitBtn);
@@ -33,6 +34,7 @@ public class LoginPage extends CommonToAllPage {
     public String loginWithInvalidCreds(String user, String pwd) {
         LoggerUtil.info("OrangeHRM invalid login - user: " + LoggerUtil.redacted());
         openAppUrl();
+        WaitHelpers.checkVisibility(getDriver(), username);
         enterInput(username, user);
         enterInput(password, pwd);
         clickElement(submitBtn);
