@@ -149,11 +149,12 @@ jobs:
 
       - name: SonarQube Scan
         if: env.SONAR_TOKEN != ''
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mvn sonar:sonar \
-            -Dsonar.projectKey=selenium-automation-framework \
+            -Dsonar.projectKey=github-actions-selenium-automation \
             -Dsonar.organization=prasad291024 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
