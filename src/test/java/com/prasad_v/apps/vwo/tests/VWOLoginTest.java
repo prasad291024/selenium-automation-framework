@@ -15,7 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Feature("Login")
 public class VWOLoginTest extends CommonToAllTest {
 
-    @Test
+    // SKIPPED: Requires a paid VWO account. Prior test credentials expired
+    // and no replacement account is currently available. Re-enable once
+    // valid VWO_USERNAME/VWO_PASSWORD are available.
+    @Test(enabled = false)
     @Story("Valid Login")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Verify valid credentials redirect to dashboard")

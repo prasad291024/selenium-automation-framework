@@ -44,7 +44,10 @@ public class VWOLoginDDTTest extends CommonToAllTest {
         Allure.addAttachment("Test Data", "text/plain", "User: " + LoggerUtil.redacted() + " | Expected: " + expectedError);
     }
 
-    @Test(dataProvider = "validLoginData")
+    // SKIPPED: Requires a paid VWO account. Prior test credentials expired
+    // and no replacement account is currently available. Re-enable once
+    // valid VWO_USERNAME/VWO_PASSWORD are available.
+    @Test(dataProvider = "validLoginData", enabled = false)
     @Story("Valid Login - Data Driven")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify successful login for valid credentials from Excel")
@@ -57,9 +60,8 @@ public class VWOLoginDDTTest extends CommonToAllTest {
 
         loginPage.loginWithValidCreds(resolvedUsername, resolvedPassword);
 
-        assertThat(DriverManagerTL.getDriver().getTitle())
-                .as("Page title should contain Dashboard after login")
-                .containsIgnoringCase("dashboard");
+        String pageTitle = DriverManagerTL.getDriver().getTitle();
+        assertThat(pageTitle).containsIgnoringCase("dashboard");
 
         Allure.addAttachment("Test Data", "User: " + LoggerUtil.redacted());
     }

@@ -74,7 +74,7 @@ public class ConfigManager {
         // Define required environment variables for each app needs
         Map<String, List<String>> requiredEnvVars = new HashMap<>();
         requiredEnvVars.put("vwo", Arrays.asList("VWO_USERNAME", "VWO_PASSWORD", "VWO_INVALID_USERNAME", "VWO_INVALID_PASSWORD"));
-        requiredEnvVars.put("orangehrm", Arrays.asList("OHR_USERNAME", "OHR_PASSWORD"));
+        requiredEnvVars.put("orangehrm", Arrays.asList()); // OrangeHRM uses properties file (public demo instance)
         requiredEnvVars.put("katalon", Arrays.asList()); // Katalon uses properties file, not env vars
 
         List<String> requiredVars = requiredEnvVars.getOrDefault(APP, Collections.emptyList());
