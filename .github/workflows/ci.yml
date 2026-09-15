@@ -114,6 +114,14 @@ jobs:
       - name: Run Checkstyle
         run: mvn checkstyle:check
 
+      - name: Cache OWASP dependency-check NVD database
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/org/owasp/dependency-check-data
+          key: owasp-dc-nvd-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            owasp-dc-nvd-${{ runner.os }}-
+
       - name: Run OWASP Dependency Check
         run: mvn org.owasp:dependency-check-maven:check
         continue-on-error: true
