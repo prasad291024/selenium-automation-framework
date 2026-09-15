@@ -78,7 +78,7 @@ jobs:
 
       - name: Start Selenium Grid with Docker Compose
         run: |
-          docker-compose up -d
+          docker compose up -d || docker-compose up -d
           # Wait for grid to be ready
           sleep 10
 
@@ -89,7 +89,7 @@ jobs:
       - name: Stop Docker Compose
         if: always()
         run: |
-          docker-compose down
+          docker compose down || docker-compose down
 
       - name: Upload Docker Grid Test Results
         if: always()
