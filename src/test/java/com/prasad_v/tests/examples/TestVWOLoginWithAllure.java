@@ -42,7 +42,7 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
         String loggedInUser = dashBoardPage.loggedInUserName();
         assertThat(loggedInUser).isNotNull().isNotEmpty();
 
-        Allure.addAttachment("Logged In User", loggedInUser);
+        Allure.addAttachment("Logged In User", "text/plain", loggedInUser);
     }
 
     @Test(priority = 2)
@@ -65,6 +65,6 @@ public class TestVWOLoginWithAllure extends CommonToAllTest {
         Allure.step("Verify error message is displayed");
         assertThat(errorMsg).contains("Your email, password, IP address or location did not match");
 
-        Allure.addAttachment("Error Message", errorMsg);
+        Allure.addAttachment("Error Message", "text/plain", errorMsg);
     }
 }

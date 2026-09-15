@@ -3,6 +3,7 @@ package com.prasad_v.apps.orangehrm.definitions;
 import com.prasad_v.apps.orangehrm.pages.EmployeeListPage;
 import com.prasad_v.apps.orangehrm.pages.LoginPage;
 import com.prasad_v.driver.DriverManagerTL;
+import com.prasad_v.utils.ConfigManager;
 import com.prasad_v.utils.LoggerUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -53,9 +54,11 @@ public class OrangeHRMLoginSteps {
 
     @Then("User should see the PIM menu header")
     public void userShouldSeeThePIMMenuHeader() {
-        loginPage.loginWithCreds(capturedUsername, capturedPassword);
+        String user = (capturedUsername != null && !capturedUsername.isBlank()) ? capturedUsername : ConfigManager.get("username");
+        String pass = (capturedPassword != null && !capturedPassword.isBlank()) ? capturedPassword : ConfigManager.get("password");
+        loginPage.loginWithCreds(user, pass);
         String menuHeader = employeeListPage.getMenuHeader();
-        assertThat(menuHeader).as("PIM menu header should be visible").isEqualTo("PIM");
+        assertThat(menuHeader).as("Menu header should be visible").isEqualTo(ConfigManager.get("expected_username"));
         LoggerUtil.info("Login verified. Menu header: " + menuHeader);
     }
 

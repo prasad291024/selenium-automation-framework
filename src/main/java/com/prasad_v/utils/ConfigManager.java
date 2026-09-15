@@ -3,6 +3,11 @@ package com.prasad_v.utils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -38,6 +43,9 @@ public class ConfigManager {
                 LoggerUtil.warn("App config not found at: " + appConfigPath + " - using base config only");
             }
         }
+
+        // Validate required environment variables
+        validateRequiredEnvironmentVariables();
     }
 
     private static void validateSelection() {
@@ -46,6 +54,35 @@ public class ConfigManager {
         }
         if (!SUPPORTED_ENVS.contains(ENV)) {
             throw new IllegalArgumentException("Unsupported env: " + ENV);
+        }
+    }
+
+    // Default values for common test credentials (used when environment variables are not set)
+    private static final Map<String, String> DEFAULT_CREDENTIAL_VALUES = new HashMap<>();
+
+    static {
+        // Initialize default credential values
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_USERNAME", "Admin");
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_PASSWORD", "admin");
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_INVALID_USERNAME", "InvalidUser");
+        DEFAULT_CREDENTIAL_VALUES.put("VWO_INVALID_PASSWORD", "InvalidPass");
+        DEFAULT_CREDENTIAL_VALUES.put("OHR_USERNAME", "Admin");
+        DEFAULT_CREDENTIAL_VALUES.put("OHR_PASSWORD", "admin123");
+    }
+
+    private static void validateRequiredEnvironmentVariables() {
+        // Define required environment variables for each app needs
+        Map<String, List<String>> requiredEnvVars = new HashMap<>();
+        requiredEnvVars.put("vwo", Arrays.asList("VWO_USERNAME", "VWO_PASSWORD", "VWO_INVALID_USERNAME", "VWO_INVALID_PASSWORD"));
+        requiredEnvVars.put("orangehrm", Arrays.asList()); // OrangeHRM uses properties file (public demo instance)
+        requiredEnvVars.put("katalon", Arrays.asList()); // Katalon uses properties file, not env vars
+
+        List<String> requiredVars = requiredEnvVars.getOrDefault(APP, Collections.emptyList());
+        for (String envVar : requiredVars) {
+            String value = System.getenv(envVar);
+            if (value == null || value.isBlank()) {
+                LoggerUtil.warn("Required environment variable " + envVar + " is not set for " + APP + " application");
+            }
         }
     }
 
@@ -88,6 +125,12 @@ public class ConfigManager {
             String envValue = System.getenv(envVar);
             if (envValue != null && !envValue.isBlank()) {
                 return envValue;
+            }
+            // Check for default value
+            String defaultValue = DEFAULT_CREDENTIAL_VALUES.get(envVar);
+            if (defaultValue != null) {
+                LoggerUtil.info("Environment variable " + envVar + " is not set. Using default value: " + defaultValue);
+                return defaultValue;
             }
             LoggerUtil.warn("Environment variable " + envVar + " is not set.");
             return "";

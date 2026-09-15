@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -33,8 +35,8 @@ public class DriverManagerCloud {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("bstack:options", bsOptions);
 
-        String hubUrl = buildAuthenticatedUrl(username, accessKey, "hub-cloud.browserstack.com");
-        driver.set(new RemoteWebDriver(new URL(hubUrl), options));
+        URL hubUrl = buildAuthenticatedUrl(username, accessKey, "hub-cloud.browserstack.com");
+        driver.set(new RemoteWebDriver(hubUrl, options));
     }
 
     public static void initLambdaTest() throws MalformedURLException {
@@ -53,14 +55,22 @@ public class DriverManagerCloud {
         ChromeOptions options = new ChromeOptions();
         options.setCapability("LT:Options", ltOptions);
 
-        String hubUrl = buildAuthenticatedUrl(username, accessKey, "hub.lambdatest.com");
-        driver.set(new RemoteWebDriver(new URL(hubUrl), options));
+        URL hubUrl = buildAuthenticatedUrl(username, accessKey, "hub.lambdatest.com");
+        driver.set(new RemoteWebDriver(hubUrl, options));
     }
 
-    private static String buildAuthenticatedUrl(String username, String accessKey, String host) {
+    private static URL buildAuthenticatedUrl(String username, String accessKey, String host) {
         String encodedUsername = URLEncoder.encode(username, StandardCharsets.UTF_8);
         String encodedAccessKey = URLEncoder.encode(accessKey, StandardCharsets.UTF_8);
-        return "https://" + encodedUsername + ":" + encodedAccessKey + "@" + host + "/wd/hub";
+        String urlString = "https://" + encodedUsername + ":" + encodedAccessKey + "@" + host + "/wd/hub";
+        try {
+            URI uri = new URI(urlString);
+            return uri.toURL();
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Invalid URL: " + urlString, e);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("Invalid URL syntax: " + urlString, e);
+        }
     }
 
     public static void quit() {

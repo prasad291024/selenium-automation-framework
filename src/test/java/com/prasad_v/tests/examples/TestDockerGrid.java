@@ -14,6 +14,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.assertj.core.api.Assertions.*;
@@ -29,17 +32,23 @@ public class TestDockerGrid {
     public void setUp(String browser) throws Exception {
         LoggerUtil.info("Setting up Docker Grid test with browser: " + browser);
 
-        String gridUrl = System.getProperty("grid.url", "http://localhost:4444/wd/hub");
+        URI gridUri;
+        try {
+            gridUri = new URI(System.getProperty("grid.url", "http://localhost:4444/wd/hub"));
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("Invalid grid URI", e);
+        }
+        URL gridUrl = gridUri.toURL();
 
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
-            driver = new RemoteWebDriver(new URL(gridUrl), options);
+            driver = new RemoteWebDriver(gridUrl, options);
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
-            driver = new RemoteWebDriver(new URL(gridUrl), options);
+            driver = new RemoteWebDriver(gridUrl, options);
         } else if (browser.equalsIgnoreCase("edge")) {
             EdgeOptions options = new EdgeOptions();
-            driver = new RemoteWebDriver(new URL(gridUrl), options);
+            driver = new RemoteWebDriver(gridUrl, options);
         } else {
             throw new IllegalArgumentException("Unsupported browser for grid: " + browser);
         }

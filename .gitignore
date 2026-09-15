@@ -43,6 +43,7 @@ Personal_Docs/
 CLAUDE.md
 
 ## Test Reports & Results ##
+.allure/
 allure-results/
 allure-report/
 screenshots/

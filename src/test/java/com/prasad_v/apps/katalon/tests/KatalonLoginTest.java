@@ -37,7 +37,7 @@ public class KatalonLoginTest extends CommonToAllTest {
 
         String header = appointmentPage.getHeader();
         assertThat(header).isEqualTo(ConfigManager.get("expected_header"));
-        Allure.addAttachment("Katalon Header", header);
+        Allure.addAttachment("Katalon Header", "text/plain", header);
     }
 
     @Test
@@ -54,6 +54,6 @@ public class KatalonLoginTest extends CommonToAllTest {
                 ConfigManager.get("invalid_password"));
 
         assertThat(error).contains(ConfigManager.get("error_message"));
-        Allure.addAttachment("Katalon Error", error);
+        Allure.addAttachment("Katalon Error", "text/plain", error);
     }
 }

@@ -27,7 +27,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
             String testName = testResult.getMethod().getQualifiedName();
             String message = String.format("Retrying %s (attempt %d of %d)", testName, retryCount, maxRetryCount);
             LoggerUtil.warn(message);
-            Allure.addAttachment("Retry Attempt", message);
+            Allure.addAttachment("Retry Attempt", "text/plain", message);
             return true;
         }
         return false;
