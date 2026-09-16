@@ -6,6 +6,7 @@ import com.prasad_v.base.CommonToAllTest;
 import com.prasad_v.driver.DriverManagerTL;
 import com.prasad_v.utils.ConfigManager;
 import io.qameta.allure.*;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Epic("OrangeHRM Application")
 @Feature("Login")
 public class OrangeHRMLoginTest extends CommonToAllTest {
+
+    @BeforeMethod
+    public void checkSiteReachability() {
+        String url = ConfigManager.get("url");
+        if (url == null || url.isBlank()) {
+            url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+        }
+        verifySiteReachable(url);
+    }
 
     @Test
     @Story("Valid Login")

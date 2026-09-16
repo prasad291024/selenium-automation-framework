@@ -36,7 +36,7 @@ public class TestDatabaseExample {
     }
 
     @AfterMethod
-    public void teardown() throws SQLException {
+    public void teardown() {
         LoggerUtil.info("Disconnecting from database");
         if (db != null) {
             db.disconnect();

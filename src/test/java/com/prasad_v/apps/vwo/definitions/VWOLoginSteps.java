@@ -3,6 +3,7 @@ package com.prasad_v.apps.vwo.definitions;
 import com.prasad_v.apps.vwo.pages.DashBoardPage;
 import com.prasad_v.apps.vwo.pages.LoginPage;
 import com.prasad_v.driver.DriverManagerTL;
+import com.prasad_v.utils.ConfigManager;
 import com.prasad_v.utils.LoggerUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -12,6 +13,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.SkipException;
+
+import java.net.HttpURLConnection;
+import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +27,35 @@ public class VWOLoginSteps {
     private String capturedUsername;
     private String capturedPassword;
 
-    @Before
+    @Before(order = 0)
+    public void checkSiteReachability() {
+        String url = ConfigManager.get("url");
+        if (url == null || url.isBlank()) {
+            url = "https://app.vwo.com";
+        }
+        try {
+            URI uri = URI.create(url);
+            HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(10000);
+            conn.setInstanceFollowRedirects(true);
+            int code = conn.getResponseCode();
+            if (code >= 500) {
+                String warnMsg = "VWO site returned HTTP " + code + " at " + url + " - skipping scenario";
+                LoggerUtil.warn(warnMsg);
+                throw new SkipException(warnMsg);
+            }
+        } catch (SkipException se) {
+            throw se;
+        } catch (Exception e) {
+            String warnMsg = "VWO site unreachable at " + url + " (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ") - skipping scenario";
+            LoggerUtil.warn(warnMsg);
+            throw new SkipException(warnMsg, e);
+        }
+    }
+
+    @Before(order = 1)
     public void setUp() {
         LoggerUtil.info("Initializing browser for scenario");
         DriverManagerTL.init();
@@ -69,12 +102,14 @@ public class VWOLoginSteps {
 
     @After
     public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            LoggerUtil.warn("Scenario FAILED: " + scenario.getName());
-            byte[] screenshot = ((TakesScreenshot) DriverManagerTL.getDriver())
-                    .getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "Failure Screenshot");
+        if (DriverManagerTL.getDriver() != null) {
+            if (scenario.isFailed()) {
+                LoggerUtil.warn("Scenario FAILED: " + scenario.getName());
+                byte[] screenshot = ((TakesScreenshot) DriverManagerTL.getDriver())
+                        .getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", "Failure Screenshot");
+            }
+            DriverManagerTL.quit();
         }
-        DriverManagerTL.quit();
     }
 }

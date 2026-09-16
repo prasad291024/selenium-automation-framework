@@ -24,7 +24,7 @@ public class WaitHelpers {
     }
 
     public static void waitImplicitWait(WebDriver driver,int time){
-        driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(time));
     }
 
 

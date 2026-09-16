@@ -7,7 +7,8 @@ Feature: Login to VWO Application
   Background:
     Given User is on VWO login page
 
-  @ValidLogin @Smoke
+  # SKIPPED: Requires a paid VWO account. Prior test credentials expired.
+  @ValidLogin @Smoke @Ignore
   Scenario: Login with valid credentials
     When User enters username as "${VWO_USERNAME}" and password as "${VWO_PASSWORD}"
     Then User should be redirected to Dashboard

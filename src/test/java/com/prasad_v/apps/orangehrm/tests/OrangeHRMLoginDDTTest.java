@@ -6,6 +6,7 @@ import com.prasad_v.driver.DriverManagerTL;
 import com.prasad_v.utils.ExcelUtil;
 import com.prasad_v.utils.LoggerUtil;
 import io.qameta.allure.*;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -16,6 +17,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class OrangeHRMLoginDDTTest extends CommonToAllTest {
 
     private static final String DATA_FILE = "src/test/resources/testdata/OrangeHRMTestData.xlsx";
+
+    @BeforeMethod
+    public void checkSiteReachability() {
+        String url = com.prasad_v.utils.ConfigManager.get("url");
+        if (url == null || url.isBlank()) {
+            url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+        }
+        verifySiteReachable(url);
+    }
 
     @DataProvider(name = "invalidLoginData", parallel = true)
     public Object[][] invalidLoginData() {
@@ -36,6 +46,6 @@ public class OrangeHRMLoginDDTTest extends CommonToAllTest {
                 .as("Error message should match for supplied user")
                 .contains(expectedError);
 
-        Allure.addAttachment("Test Data", "User: " + LoggerUtil.redacted() + " | Expected: " + expectedError);
+        Allure.addAttachment("Test Data", "text/plain", "User: " + LoggerUtil.redacted() + " | Expected: " + expectedError);
     }
 }
