@@ -14,6 +14,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <allure.version>2.29.0</allure.version>
     <cucumber.version>7.34.8</cucumber.version>
+    <!-- SonarCloud Coverage Exclusions:
+         - DriverManagerCloud.java: Remote cloud grid integration (BrowserStack/LambdaTest) requiring paid credentials unavailable in CI.
+         - ScreenshotUtil.java: Failure-only capture utility executed exclusively on test assertion failure.
+    -->
+    <sonar.coverage.exclusions>
+      **/driver/DriverManagerCloud.java,
+      **/utils/ScreenshotUtil.java
+    </sonar.coverage.exclusions>
   </properties>
 
   <dependencyManagement>
