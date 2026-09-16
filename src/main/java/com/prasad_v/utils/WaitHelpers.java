@@ -1,12 +1,14 @@
 package com.prasad_v.utils;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import static com.prasad_v.driver.DriverManagerTL.getDriver;
@@ -46,8 +48,7 @@ public class WaitHelpers {
     public static WebElement checkVisibilityByFluentWait(WebDriver driver, By locator) {
         FluentWait<WebDriver> wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofSeconds(2))
-                .ignoring(org.openqa.selenium.NoSuchElementException.class);
+                .pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class);
 
         WebElement error_message = wait.until(new Function<WebDriver, WebElement>() {
             public WebElement apply(WebDriver driver) {

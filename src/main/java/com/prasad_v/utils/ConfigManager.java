@@ -58,7 +58,7 @@ public class ConfigManager {
     }
 
     // Default values for common test credentials (used when environment variables are not set)
-    private static final Map<String, String> DEFAULT_CREDENTIAL_VALUES = new HashMap<>();
+    static final Map<String, String> DEFAULT_CREDENTIAL_VALUES = new HashMap<>();
 
     static {
         // Initialize default credential values
@@ -120,6 +120,17 @@ public class ConfigManager {
         }
 
         String value = properties.getProperty(key);
+        return resolveEnvPlaceholder(value);
+    }
+
+    /**
+     * Resolves environment variable placeholders in the format "${ENV_VAR_NAME}".
+     * Package-private for unit testing.
+     *
+     * @param value The value potentially containing a placeholder
+     * @return The resolved value, default credential value, empty string if unset, or original value
+     */
+    static String resolveEnvPlaceholder(String value) {
         if (value != null && value.startsWith("${") && value.endsWith("}")) {
             String envVar = value.substring(2, value.length() - 1);
             String envValue = System.getenv(envVar);

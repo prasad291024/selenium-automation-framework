@@ -26,8 +26,24 @@ jobs:
           distribution: "temurin"
           cache: "maven"
 
-      - name: Build
-        run: mvn clean compile -q
+      - name: Build & Run Unit Tests
+        run: |
+          mvn clean test \
+            -Dsurefire.suiteXmlFiles=testng_unit.xml
+
+      - name: Generate JaCoCo Report
+        if: always()
+        run: mvn jacoco:report
+
+      - name: Upload Unit Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-unit
+          path: |
+            target/surefire-reports/
+            target/site/jacoco/
+          retention-days: 30
 
   ui-matrix-tests:
     name: UI Tests - ${{ matrix.app }} (${{ matrix.suite_type }}) (${{ matrix.browser }})
