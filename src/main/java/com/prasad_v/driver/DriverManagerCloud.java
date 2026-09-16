@@ -21,7 +21,7 @@ public class DriverManagerCloud {
         return driver.get();
     }
 
-    public static void initBrowserStack() throws MalformedURLException {
+    public static void initBrowserStack() {
         String username = ConfigManager.getRequired("browserstack.username");
         String accessKey = ConfigManager.getRequired("browserstack.accesskey");
 
@@ -39,7 +39,7 @@ public class DriverManagerCloud {
         driver.set(new RemoteWebDriver(hubUrl, options));
     }
 
-    public static void initLambdaTest() throws MalformedURLException {
+    public static void initLambdaTest() {
         String username = ConfigManager.getRequired("lambdatest.username");
         String accessKey = ConfigManager.getRequired("lambdatest.accesskey");
 
