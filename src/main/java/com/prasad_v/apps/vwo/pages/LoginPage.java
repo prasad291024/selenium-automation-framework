@@ -24,6 +24,7 @@ public class LoginPage extends CommonToAllPage {
     public String loginWithInvalidCreds(String user, String pwd) {
         LoggerUtil.info("Login attempt with invalid credentials - user: " + LoggerUtil.redacted());
         openAppUrl();
+        WaitHelpers.checkVisibility(getDriver(), username);
         enterInput(username, user);
         enterInput(password, pwd);
         clickElement(signButton);
@@ -36,6 +37,7 @@ public class LoginPage extends CommonToAllPage {
     public void loginWithValidCreds(String user, String pwd) {
         LoggerUtil.info("Login attempt with valid credentials - user: " + LoggerUtil.redacted());
         openAppUrl();
+        WaitHelpers.checkVisibility(getDriver(), username);
         enterInput(username, user);
         enterInput(password, pwd);
         clickElement(signButton);

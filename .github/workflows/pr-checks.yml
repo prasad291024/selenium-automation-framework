@@ -30,7 +30,7 @@ jobs:
         run: mvn clean compile -q
 
   ui-matrix-tests:
-    name: UI Tests - ${{ matrix.app }} (${{ matrix.browser }})
+    name: UI Tests - ${{ matrix.app }} (${{ matrix.suite_type }}) (${{ matrix.browser }})
     runs-on: ubuntu-latest
     needs: [build-verification, security-scan]
     strategy:
