@@ -10,12 +10,12 @@ Feature: Login to VWO Application
   # SKIPPED: Requires a paid VWO account. Prior test credentials expired.
   @ValidLogin @Smoke @Ignore
   Scenario: Login with valid credentials
-    When User enters username as "${VWO_USERNAME}" and password as "${VWO_PASSWORD}"
+    When User logs in with username "${VWO_USERNAME}" and password "${VWO_PASSWORD}"
     Then User should be redirected to Dashboard
 
   @InvalidLogin @Regression
   Scenario Outline: Login with invalid credentials shows error
-    When User enters username as "<username>" and password as "<password>"
+    When User logs in with username "<username>" and password "<password>"
     Then User should see error message "<errorMessage>"
 
     Examples:

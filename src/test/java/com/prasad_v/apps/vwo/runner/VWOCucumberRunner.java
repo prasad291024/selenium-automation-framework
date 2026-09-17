@@ -6,7 +6,10 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "src/test/resources/features/vwo",
-        glue = "com.prasad_v.apps.vwo.definitions",
+        glue = {
+                "com.prasad_v.apps.vwo.definitions",
+                "com.prasad_v.cucumber.hooks"
+        },
         tags = "not @Ignore",
         plugin = {
                 "pretty",
