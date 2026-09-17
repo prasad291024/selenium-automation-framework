@@ -41,7 +41,7 @@ Successfully enhanced Allure reporting with categories, environment info, compre
 - ✅ Allure.addAttachment() for evidence
 
 ### 4. Comprehensive Documentation
-**File**: `Personal_Docs/ALLURE_REPORTING_GUIDE.md`
+**File**: `../docs/ALLURE_REPORTING_GUIDE.md`
 
 **Includes**:
 - ✅ Configuration files guide

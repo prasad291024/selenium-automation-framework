@@ -40,10 +40,12 @@ build/
 
 ## Personal files and folders ##
 Personal_Docs/
+Personal_Docs
 CLAUDE.md
 .claude/
 page_source/
-project-tree.txt
+Personal_Docs/project-tree.txt
+
 
 ## Test Reports & Results ##
 .allure/

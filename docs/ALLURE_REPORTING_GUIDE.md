@@ -9,7 +9,7 @@ Complete guide for Allure Report configuration, customization, and best practice
 
 ### 1. categories.json
 **Location**: Project root  
-**Purpose**: Classify test failures
+**Purpose**: Classify test failures into meaningful categories
 
 ```json
 [
@@ -21,20 +21,35 @@ Complete guide for Allure Report configuration, customization, and best practice
   {
     "name": "Test Defects",
     "matchedStatuses": ["broken"],
-    "messageRegex": ".*NullPointerException.*"
+    "messageRegex": ".*(NullPointerException|IllegalStateException|IllegalArgumentException).*"
+  },
+  {
+    "name": "Timeout Issues",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*(TimeoutException|NoSuchElementException|ElementNotInteractableException).*"
+  },
+  {
+    "name": "Configuration Issues",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*(IllegalStateException|IllegalArgumentException).*missing.*config.*"
   }
 ]
 ```
 
 ### 2. environment.properties
 **Location**: Project root  
-**Purpose**: Display environment information
+**Purpose**: Display environment information in Allure reports
 
 ```properties
 Browser=Chrome
 Environment=QA
 Java.Version=17
 OS=Windows
+Framework.Version=1.0-SNAPSHOT
+Allure.Version=2.29.0
+Cucumber.Version=7.34.8
+Selenium.Version=4.49.0
+TestNG.Version=7.12.0
 ```
 
 ---
@@ -205,7 +220,7 @@ mvn allure:serve
 ## 🎨 Customization
 
 ### Custom Categories
-Edit `categories.json`:
+Edit `../categories.json`:
 ```json
 [
   {
@@ -217,7 +232,7 @@ Edit `categories.json`:
 ```
 
 ### Environment Info
-Edit `environment.properties`:
+Edit `../environment.properties`:
 ```properties
 Browser=Chrome
 Browser.Version=120.0
@@ -228,7 +243,7 @@ Execution.Date=2024-01-15
 ```
 
 ### Report Title
-In `pom.xml`:
+In `../pom.xml`:
 ```xml
 <plugin>
   <groupId>io.qameta.allure</groupId>
@@ -373,7 +388,7 @@ project/
 - [x] Steps implemented
 - [x] Screenshots attached
 - [x] Report generation tested
-- [ ] CI/CD integration configured
+- [x] CI/CD integration configured (GitHub Actions workflow added)
 - [ ] GitHub Pages deployment (optional)
 
 ---

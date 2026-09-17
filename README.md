@@ -32,7 +32,7 @@ src/
     java/com/prasad_v/
       base/                      # CommonToAllPage (app-agnostic)
       driver/                    # DriverManagerTL, DriverManagerCloud
-      utils/                     # ConfigManager, LoggerUtil, APIUtil, etc.
+      utils/                     # ConfigManager, LoggerUtil, APIUtil, CredentialResolver, etc.
       apps/
         vwo/pages/               # VWO Page Objects
         orangehrm/pages/         # OrangeHRM Page Objects
@@ -49,6 +49,8 @@ src/
   test/
     java/com/prasad_v/
       base/                      # CommonToAllTest
+      cucumber/                  # Cucumber hooks
+        hooks/                   # Shared Cucumber lifecycle hooks (e.g., CucumberHooks.java)
       listeners/                 # RetryAnalyzer, ScreenshotListener
       apps/
         vwo/

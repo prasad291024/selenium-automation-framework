@@ -7,16 +7,16 @@
   {
     "name": "Test Defects",
     "matchedStatuses": ["broken"],
-    "messageRegex": ".*NullPointerException.*|.*NoSuchElementException.*"
+    "messageRegex": ".*(NullPointerException|IllegalStateException|IllegalArgumentException).*"
   },
   {
     "name": "Timeout Issues",
-    "matchedStatuses": ["broken"],
-    "messageRegex": ".*TimeoutException.*"
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*(TimeoutException|NoSuchElementException|ElementNotInteractableException).*"
   },
   {
     "name": "Configuration Issues",
-    "matchedStatuses": ["broken"],
-    "messageRegex": ".*WebDriverException.*|.*SessionNotCreatedException.*"
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*(IllegalStateException|IllegalArgumentException).*missing.*config.*"
   }
 ]
