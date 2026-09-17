@@ -31,7 +31,7 @@ Successfully implemented comprehensive CI/CD pipeline with GitHub Actions, code 
 3. `security-scan` - OWASP dependency check
 
 ### 3. Comprehensive Documentation
-**File**: `Personal_Docs/CICD_SETUP_GUIDE.md`
+**File**: `../docs/CICD_SETUP_GUIDE.md`
 
 **Includes**:
 - ✅ GitHub Secrets configuration
@@ -168,7 +168,7 @@ git push origin feature/test-cicd
 
 ### Created:
 - `.github/workflows/pr-checks.yml` - PR automation workflow
-- `Personal_Docs/CICD_SETUP_GUIDE.md` - Complete setup guide
+- `../docs/CICD_SETUP_GUIDE.md` - Complete setup guide
 - `Personal_Docs/PHASE_7_COMPLETE.md` - This file
 
 ---
