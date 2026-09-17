@@ -6,7 +6,10 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "src/test/resources/features/katalon",
-        glue = "com.prasad_v.apps.katalon.definitions",
+        glue = {
+                "com.prasad_v.apps.katalon.definitions",
+                "com.prasad_v.cucumber.hooks"
+        },
         tags = "not @Ignore",
         plugin = {
                 "pretty",

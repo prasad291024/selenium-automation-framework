@@ -4,8 +4,9 @@ import com.prasad_v.apps.katalon.pages.AppointmentPage;
 import com.prasad_v.apps.katalon.pages.HomePage;
 import com.prasad_v.apps.katalon.pages.LoginPage;
 import com.prasad_v.driver.DriverManagerTL;
+import com.prasad_v.utils.ConfigManager;
+import com.prasad_v.utils.CredentialResolver;
 import com.prasad_v.utils.LoggerUtil;
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
@@ -24,10 +25,9 @@ public class KatalonLoginSteps {
     private String capturedUsername;
     private String capturedPassword;
 
-    @Before
+    @Before(order = 2)
     public void setUp() {
         LoggerUtil.info("Initializing browser for Katalon scenario");
-        DriverManagerTL.init();
         homePage = new HomePage(DriverManagerTL.getDriver());
         loginPage = new LoginPage(DriverManagerTL.getDriver());
         appointmentPage = new AppointmentPage(DriverManagerTL.getDriver());
@@ -41,17 +41,34 @@ public class KatalonLoginSteps {
 
     @When("User logs in to Katalon with username {string} and password {string}")
     public void userLogsInToKatalon(String username, String password) {
-        capturedUsername = resolveCredentials(username);
-        capturedPassword = resolveCredentials(password);
+        String resolvedUsername = CredentialResolver.resolveCredentials(username);
+        String resolvedPassword = CredentialResolver.resolveCredentials(password);
+
+        // If the resolved value is an unresolved placeholder (environment variable not set),
+        // fall back to ConfigManager
+        if (isUnresolvedPlaceholder(username, resolvedUsername)) {
+            capturedUsername = ConfigManager.get("username");
+        } else {
+            capturedUsername = resolvedUsername;
+        }
+
+        if (isUnresolvedPlaceholder(password, resolvedPassword)) {
+            capturedPassword = ConfigManager.get("password");
+        } else {
+            capturedPassword = resolvedPassword;
+        }
     }
 
-    private String resolveCredentials(String value) {
-        if (value != null && value.startsWith("${") && value.endsWith("}")) {
-            String envVarName = value.substring(2, value.length() - 1);
-            String envValue = System.getenv(envVarName);
-            return envValue != null ? envValue : value;
-        }
-        return value;
+    /**
+     * Checks if the original string was a placeholder that remains unresolved.
+     * @param original the original string from the feature file
+     * @param resolved the string after CredentialResolver resolution
+     * @return true if original matches ${...} pattern and resolved equals original (unresolved)
+     */
+    private boolean isUnresolvedPlaceholder(String original, String resolved) {
+        return original != null
+            && original.matches("\\$\\{[^}]+\\}")
+            && resolved.equals(original);
     }
 
     @Then("User should see the Make Appointment header")
@@ -67,16 +84,5 @@ public class KatalonLoginSteps {
         String actualError = loginPage.loginWithInvalidCreds(capturedUsername, capturedPassword);
         assertThat(actualError).as("Error message should match").contains(expectedError);
         LoggerUtil.info("Error message verified: " + actualError);
-    }
-
-    @After
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            LoggerUtil.warn("Scenario FAILED: " + scenario.getName());
-            byte[] screenshot = ((TakesScreenshot) DriverManagerTL.getDriver())
-                    .getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "Failure Screenshot");
-        }
-        DriverManagerTL.quit();
     }
 }
